@@ -1,1 +1,22 @@
-<p>lister-evenements works!</p>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th class="col">Nom évènement</th>
+            <th class="col">Date de cloture</th>
+            <th class="col">Date évènement</th>
+            <th class="col">Nombre de personnes inscrites</th>
+            <th class="col">Boutton</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr *ngFor="let evt of this.listEvenements; index as i">
+            <td>{{evt.nom}}</td>
+            <td>{{evt.dateFermeture}}</td>
+            <td>{{evt.dateEvenement}}</td>
+            <td>/{{evt.nbMaxParticipants}}</td>
+            <td>Boutton</td>
+        </tr>
+    </tbody>
+
+</table>
