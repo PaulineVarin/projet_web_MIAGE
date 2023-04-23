@@ -1,0 +1,42 @@
+.inner-div {
+    display:inline-block;
+    width: 40%;
+    border: solid;
+    border-color: black;
+}
+
+.inner-div1 {
+    margin-left: 5%;
+    margin-right: 4%;
+}
+
+.inner-div2 {
+    margin-left: 4%;
+    margin-right: 5%;
+}
+
+#item-composants-consulter-evenement {
+    width: 100%;
+    text-align: center;
+}
+
+.boutons {
+    width: 100%;
+    text-align: right;
+}
+
+button {
+    border: none;
+    width: 10%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+}
+
+button.alert {
+    color: red;
+    background: transparent;
+}
+
+button {
+    background: #DCD5D5;
+}
