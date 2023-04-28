@@ -1,41 +1,37 @@
-var createError = require('http-errors');
 var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+var bodyparser = require('body-parser');
+var metier = require('./metierApplication') ; 
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var app = express() ; 
+app.use(bodyparser.json());
 
-var app = express();
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
 
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+//Version avec chaîne de promise
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
+app.get('/root', function(req, res) {
+  //res.send('Ca marche') ; *
+  //Retour une Promise 
+  metier.getEvenement(req).then(
+    V => res.send(V)
+  )
+  .catch(  err => { console.log(err); } );
+  //s'execute même sans la fin du getEvenement, continuation de l'event loop, ne connais pas le résultat de l'appel au-dessus
+  console.log("Preuve de l'event loop");
 });
 
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
+//Version sans chaîne de promise "faux asynchrone"
 
-module.exports = app;
+app.get('/', async function(req, res) {
+  //res.send('Ca marche') ; *
+  //Retour une Promise 
+  let mario = await metier.getEvenement(req)
+  console.log(mario);
+  res.send(mario);
+}); 
+
+
+app.listen(3000, function() {
+  console.log('Server running') ; 
+}) ; 

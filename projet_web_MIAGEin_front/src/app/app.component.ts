@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Evenement } from './model/Evenement';
-var Sqlite = require("nativescrpit-sqlite");
 
 @Component({
   selector: 'app-root',

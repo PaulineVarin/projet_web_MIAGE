@@ -16,7 +16,7 @@ export class ListerEvenementsComponent implements OnInit {
     e1.nom='Pauline';
     e1.nbMaxParticipants=20 ; 
 
-    this.listEvenements.push(e1)
+    this.listEvenements.push(e1);
 
     
   }
