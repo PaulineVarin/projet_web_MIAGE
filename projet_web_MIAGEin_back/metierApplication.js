@@ -1,24 +1,25 @@
 //Partie Metier
 var sqlite3 = require('sqlite3');
-//Liste evenements
-
-
-//Constructeur tous evenements
-function Evenement(pacronyme,pnom, padresse, pdescription, pnbMaxParticipants ) {
-    this.acronyme = pacronyme ;
-    this.nom = pnom ;
-    this.description = pdescription ;
-    this.adresse = padresse ; 
-    this.dateOuverture = new Date() ; 
-    this.dateFermeture = new Date() ; 
-    this.dateEvenement = new Date() ; 
-    this.nbMaxParticipants = pnbMaxParticipants ; 
-}
 
 //Methodes metier
 
-//Recuperation 1 evenement*
-function getEvenement (pacronyme) {
+//Constructeur evenement
+function Evenement(pacronyme, pnom, padresse, pdescription,pdateOuverture,pdateFermeture,pdateEvenement, pnbMaxParticipants) {
+    this.acronyme = pacronyme;
+    this.nom=pnom;
+    this.adresse = padresse;
+    this.description = pdescription;
+    this.dateOuverture = pdateOuverture;
+    this.dateFermeture = pdateFermeture;
+    this.dateEvenement = pdateEvenement;
+    this.nbMaxParticipants = pnbMaxParticipants;
+}
+
+
+
+//Recuperation des evenement
+function getEvenement () {
+    listEvenements = [];
     //ouverture de la connexion
     const custProm = new Promise((resolve, reject) => {
 
@@ -31,18 +32,19 @@ function getEvenement (pacronyme) {
             }
             console.log('ouverture BDD');
         });
-    
-        db.get(sql, (err, data) => {
+        
+        db.each(sql, (err, row) => {
             if (err) {
                 reject(err);
             }
             else {
-                //db.close();  
-                db.close();
-                resolve(data);
-            }
+                //Creation nouvel evenement
+                evt = new Evenement(row.acronyme, row.nom, row.adresse, row.description, row.dateOuverture, row.dateFermeture, row.dateEvenement, row.nbMaxParticipants); 
+                listEvenements.push(evt) ; 
+            } 
+            resolve(listEvenements); 
         });
-                //return x;
+        db.close(); 
     });
 
     return custProm;

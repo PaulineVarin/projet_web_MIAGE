@@ -5,31 +5,34 @@ var metier = require('./metierApplication') ;
 var app = express() ; 
 app.use(bodyparser.json());
 
-
-
-//Version avec chaîne de promise
-
-app.get('/root', function(req, res) {
-  //res.send('Ca marche') ; *
-  //Retour une Promise 
-  metier.getEvenement(req).then(
-    V => res.send(V)
-  )
-  .catch(  err => { console.log(err); } );
-  //s'execute même sans la fin du getEvenement, continuation de l'event loop, ne connais pas le résultat de l'appel au-dessus
-  console.log("Preuve de l'event loop");
-});
-
-
-//Version sans chaîne de promise "faux asynchrone"
-
-app.get('/', async function(req, res) {
-  //res.send('Ca marche') ; *
-  //Retour une Promise 
-  let mario = await metier.getEvenement(req)
-  console.log(mario);
-  res.send(mario);
+app.all('*', function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers","Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Methods","GET, POST, PUT, DELETE, OPTIONS");
+  next(); 
 }); 
+
+
+
+//ajouter evenement (POST)
+
+//lister les evemenements (tous)
+//Version sans chaîne de promise "faux asynchrone"
+app.get('/', async function(req, res) {
+  res.status(200).json(await metier.getEvenement()) ; 
+}); 
+
+//Lister les evenements actifs (GET)
+
+//Lister les details d'un evenement (GET)
+
+//Afficher une personne (GET)
+
+//Ajouter une personne (POST)
+
+//Supprimer une personne dans un evenement (DELETE)
+
+//Supprimer un evenement (DELETE)
 
 
 app.listen(3000, function() {

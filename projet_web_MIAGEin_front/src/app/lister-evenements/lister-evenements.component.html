@@ -11,7 +11,8 @@
 
     <tbody>
         <tr *ngFor="let evt of this.listEvenements; index as i">
-            <td>{{evt.nom}}</td>
+            <td>{{i}}</td>
+            <td>{{evt.acronyme}}</td>
             <td>{{evt.dateFermeture}}</td>
             <td>{{evt.dateEvenement}}</td>
             <td>/{{evt.nbMaxParticipants}}</td>
