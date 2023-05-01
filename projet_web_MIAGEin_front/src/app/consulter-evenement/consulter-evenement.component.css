@@ -1,23 +1,30 @@
+.item-composants-consulter-evenement {
+    width: 100%;
+    align-content:baseline;
+}
+
+.tablediv {
+    text-align: end;
+}
+
+td{vertical-align: top;}
+
 .inner-div {
     display:inline-block;
-    width: 40%;
     border: solid;
     border-color: black;
+    min-height: 500px; /* TODO dégager cette immondice */
 }
 
 .inner-div1 {
     margin-left: 5%;
     margin-right: 4%;
+    width: fit-content;
 }
 
 .inner-div2 {
     margin-left: 4%;
     margin-right: 5%;
-}
-
-#item-composants-consulter-evenement {
-    width: 100%;
-    text-align: center;
 }
 
 .boutons {

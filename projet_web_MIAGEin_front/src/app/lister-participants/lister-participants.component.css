@@ -1,0 +1,40 @@
+table {
+    background-color: white;
+    width: 100%;
+    text-align: left;
+    padding-bottom: 2%;
+}
+
+div {
+    width: 100%;
+}
+
+thead {
+    width: 100%;
+    text-align: center;
+}
+
+tbody {
+    width: 100%;
+}
+
+tr {
+    width: 100%;
+}
+
+.champs {
+    font-weight: bold;
+}
+
+.nom {
+    width: 50%;
+} 
+
+.prenom {
+    width: 50%;
+}
+
+input {
+    width: 90%;
+}
+
