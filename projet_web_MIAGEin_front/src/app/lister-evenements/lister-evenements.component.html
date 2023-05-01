@@ -1,3 +1,5 @@
+<h1 class="text-center">Evènements à venir</h1>
+
 <table class="table table-striped">
     <thead>
         <tr>
@@ -11,13 +13,13 @@
 
     <tbody>
         <tr *ngFor="let evt of this.listEvenements; index as i">
-            <td>{{i}}</td>
-            <td>{{evt.acronyme}}</td>
+            <td>{{evt.nom}}</td>
             <td>{{evt.dateFermeture}}</td>
             <td>{{evt.dateEvenement}}</td>
             <td>/{{evt.nbMaxParticipants}}</td>
-            <td>BT</td>
+            <td><button type="button" class="btn btn-outline-secondary">S'inscrire</button></td>
         </tr>
     </tbody>
-
 </table>
+
+<p class="bg-danger text-white">ATTENTION ICI ON RECUEPRE ENCORE TOUT LES EVENEMENTS - DOIT APPARAITRE UNIQUEMENT LES EVENEMENTS EN COURS</p>

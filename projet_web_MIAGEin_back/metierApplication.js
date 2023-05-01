@@ -1,9 +1,8 @@
 //Partie Metier
 var sqlite3 = require('sqlite3');
 
-//Methodes metier
 
-//Constructeur evenement
+//Constructeur model evenement
 function Evenement(pacronyme, pnom, padresse, pdescription,pdateOuverture,pdateFermeture,pdateEvenement, pnbMaxParticipants) {
     this.acronyme = pacronyme;
     this.nom=pnom;
@@ -15,7 +14,7 @@ function Evenement(pacronyme, pnom, padresse, pdescription,pdateOuverture,pdateF
     this.nbMaxParticipants = pnbMaxParticipants;
 }
 
-
+//Methodes metier
 
 //Recuperation des evenement
 function getEvenement () {

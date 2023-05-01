@@ -5,6 +5,8 @@ var metier = require('./metierApplication') ;
 var app = express() ; 
 app.use(bodyparser.json());
 
+
+//Ajout pour permettre la liaison avec le projet Angular
 app.all('*', function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers","Origin, X-Requested-With, Content-Type, Accept");
@@ -12,7 +14,7 @@ app.all('*', function(req, res, next) {
   next(); 
 }); 
 
-
+//API REST
 
 //ajouter evenement (POST)
 
@@ -34,7 +36,7 @@ app.get('/', async function(req, res) {
 
 //Supprimer un evenement (DELETE)
 
-
+//Demarrage du serveur sur le port 3000
 app.listen(3000, function() {
   console.log('Server running') ; 
 }) ; 
