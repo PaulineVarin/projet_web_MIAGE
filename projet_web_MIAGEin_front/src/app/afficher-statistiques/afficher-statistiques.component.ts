@@ -10,6 +10,7 @@ import { ApiProjetWebService } from '../api-projet-web.service';
 export class AfficherStatistiquesComponent implements OnInit {
   //mise en place de la recuperation des infos provenant de l'API via le service
   listEvenements:Evenement[] = [];
+  
 
   constructor(private apiProjetWeb:ApiProjetWebService) {}
 

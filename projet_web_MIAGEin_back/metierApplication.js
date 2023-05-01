@@ -16,8 +16,8 @@ function Evenement(pacronyme, pnom, padresse, pdescription,pdateOuverture,pdateF
 
 //Methodes metier
 
-//Recuperation des evenement
-function getEvenement () {
+//Recuperation de tout les evenements
+function getEvenements () {
     listEvenements = [];
     //ouverture de la connexion
     const custProm = new Promise((resolve, reject) => {
@@ -48,6 +48,8 @@ function getEvenement () {
 
     return custProm;
 };
-        
 
-exports.getEvenement = getEvenement ; 
+//Recuperation des evenements encore disponibles
+
+        
+exports.getEvenements = getEvenements ; 

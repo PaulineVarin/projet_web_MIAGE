@@ -7,8 +7,9 @@ import { Evenement } from './model/Evenement';
   providedIn: 'root'
 })
 
-//Mise en place de la liaison avec la partie Node
+
 export class ApiProjetWebService {
+  //Mise en place de la liaison avec la partie Node
   private url = 'http://localhost:3000' ; 
 
   constructor(private httpClient: HttpClient) {}
@@ -17,6 +18,4 @@ export class ApiProjetWebService {
   public recupereListeEvenements(): Observable<Evenement[]> {
     return this.httpClient.get<Evenement[]>(this.url + '/') ;
   }
-
-
 }

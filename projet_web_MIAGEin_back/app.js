@@ -18,10 +18,10 @@ app.all('*', function(req, res, next) {
 
 //ajouter evenement (POST)
 
-//lister les evemenements (tous)
+//lister tout les evenements (GET)
 //Version sans chaîne de promise "faux asynchrone"
 app.get('/', async function(req, res) {
-  res.status(200).json(await metier.getEvenement()) ; 
+  res.status(200).json(await metier.getEvenements()) ; 
 }); 
 
 //Lister les evenements actifs (GET)
