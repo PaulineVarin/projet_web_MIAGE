@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ListerEvenementsComponent } from './lister-evenements/lister-evenements.component';
@@ -10,6 +9,8 @@ import { ConsulterEvenementComponent } from './consulter-evenement/consulter-eve
 import { DetailsEvenementComponent } from './details-evenement/details-evenement.component';
 import { ListerParticipantsComponent } from './lister-participants/lister-participants.component';
 import { AjouterEvenementComponent } from './ajouter-evenement/ajouter-evenement.component';
+import { ApiProjetWebService } from './api-projet-web.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -24,9 +25,10 @@ import { AjouterEvenementComponent } from './ajouter-evenement/ajouter-evenement
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [ApiProjetWebService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
