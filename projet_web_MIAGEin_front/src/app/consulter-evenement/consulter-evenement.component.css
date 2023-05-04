@@ -13,7 +13,8 @@ td{vertical-align: top;}
     display:inline-block;
     border: solid;
     border-color: black;
-    min-height: 500px; /* TODO dégager cette immondice */
+    height: 490px;
+    background-color: white;
 }
 
 .inner-div1 {
@@ -25,6 +26,7 @@ td{vertical-align: top;}
 .inner-div2 {
     margin-left: 4%;
     margin-right: 5%;
+    width: 110%;
 }
 
 .boutons {

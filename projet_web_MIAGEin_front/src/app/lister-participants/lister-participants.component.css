@@ -1,8 +1,20 @@
+.divTableScroll {
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    display: inline-block;
+    height: 350px;
+}
+
 table {
     background-color: white;
     width: 100%;
     text-align: left;
     padding-bottom: 2%;
+    
+}
+
+h1 {
+    text-align: center;
 }
 
 div {
@@ -12,7 +24,11 @@ div {
 thead {
     width: 100%;
     text-align: center;
+    position: sticky;
+    top: 0;
+    background-color: white;
 }
+
 
 tbody {
     width: 100%;
@@ -34,7 +50,5 @@ tr {
     width: 50%;
 }
 
-input {
-    width: 90%;
-}
+
 
