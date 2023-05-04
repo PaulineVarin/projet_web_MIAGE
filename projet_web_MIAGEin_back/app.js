@@ -1,6 +1,7 @@
 var express = require('express');
 var bodyparser = require('body-parser');
 var metierEvenement = require('./metierEvenement') ; 
+var metierParticipant = require('./metierParticipants');
 
 var app = express() ; 
 app.use(bodyparser.json());
@@ -53,10 +54,7 @@ app.get('/evenement/details/:acronymeEvent', async function(req, res) {
   res.status(200).json(await metierEvenement.getInformationsEvenement(acronyme)) ; 
 })
 
-//Afficher une personne (GET)
-
 //Ajouter une personne (POST)
-
 
 //Demarrage du serveur sur le port 3000
 app.listen(3000, function() {
