@@ -1,6 +1,6 @@
 var express = require('express');
 var bodyparser = require('body-parser');
-var metierEvenement = require('./metierEvenement');
+var metierEvenement = require('./metierEvenement') ; 
 var metierParticipant = require('./metierParticipants');
 
 var app = express() ; 
@@ -41,9 +41,24 @@ app.get('/', async function(req, res) {
   res.status(200).json(await metierEvenement.getEvenements()) ; 
 }); 
 
+//Supprimer un evenement (DELETE)
+
+//lister tout les evenements (GET) => ok
+//Version sans chaîne de promise "faux asynchrone" 
+app.get('/evenement/lister', async function(req, res) { 
+  res.status(200).json(await metierEvenement.getEvenements()) ; 
+});
+
 //Lister les evenements actifs (GET)
+app.get('/evenement/lister/actifs', async function(req, res) {
+  res.status(200).json(await metierEvenement.getEvenementsCourants())
+})
 
 //Lister les details d'un evenement (GET)
+app.get('/evenement/details/:acronymeEvent', async function(req, res) {
+  var acronyme = req.params.acronymeEvent ;
+  res.status(200).json(await metierEvenement.getInformationsEvenement(acronyme)) ; 
+})
 
 //Afficher les personnes d'un évènement (GET)
 app.get('/personne/:acronymeEvenement/lister', async function(req, res) {
