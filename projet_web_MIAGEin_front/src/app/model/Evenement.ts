@@ -6,6 +6,7 @@ export class Evenement {
     dateOuverture:Date;
     dateFermeture:Date;
     nbMaxParticipants:number;
+    nbParticipants:number;
     dateEvenement:Date;
 
     constructor () {
@@ -16,6 +17,7 @@ export class Evenement {
         this.dateOuverture= new Date() ;
         this.dateFermeture=new Date() ; 
         this.dateEvenement=new Date() ; 
+        this.nbParticipants=0 ; 
         this.nbMaxParticipants=0;
     }
 }
