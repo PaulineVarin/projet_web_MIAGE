@@ -17,6 +17,22 @@ app.all('*', function(req, res, next) {
 //API REST
 
 //ajouter evenement (POST)
+app.post('/evenement/ajouter', async function(req, res) {
+  //Récuperer les paramètres
+  var evenement = req.body ; 
+
+  //Metier
+  console.log("Metier") ; 
+  try {
+    var objRes = await metierEvenement.ajouterEvenement(evenement) ; 
+    //Forger le résultat
+    res.status(200).json(objRes) ; 
+  }
+  catch (error) {
+    console.log(error) ; 
+    //res.status(200).json("Erreur lors de l'insertion") ; 
+  }
+}); 
 
 //Supprimer un evenement (DELETE)
 

@@ -168,6 +168,59 @@ function getInformationsEvenement(acronymeEvenement) {
 };
 
 
+//Ajout d'un nouveau evenement
+function ajouterEvenement(evenement) {
+    const custProm = new Promise((resolve, reject) => {
+        //Insertion de l'evenement
+        let sql = 'INSERT INTO Evenement VALUES(?, ?, ?, ? , ?, ?, ?, ?)' ; 
+
+        //ouverture de la connexion
+        let db = new sqlite3.Database('database/databaseProject.db', err => {
+            if (err) {
+                reject(err);
+                db.close();  
+            }
+            console.log('ouverture BDD ajouterEvenement');
+        });
+
+        db.run(sql, [evenement.acronyme, evenement.nom, evenement.adresse,evenement.description, evenement.dateOuverture, evenement.dateFermeture,evenement.dateEvenement, evenement.nbMaxParticipants], function(err) {
+            console.log("Run");
+            if (err) {
+                reject(err);
+            }
+            else {
+                db.close() ; 
+                resolve(evenement) ; 
+            }
+        });
+    });
+    return custProm ; 
+}
+
+//Suppression d'un evenement
+function supprimerEvenement(acronymeEvenement) {
+    const custProm = new Promise((resolve, reject) => {
+        //Suppression du lien entre les participants et l'evenement
+        sqlLienPE = 'DELETE FROM Participe WHERE acronyme = ?';
+        //Suppression de l'evenement
+        sql = 'DELETE FROM Evenemement WHERE acronyme= ?' ; 
+        
+        //ouverture de la connexion
+        let db = new sqlite3.Database('database/databaseProject.db', err => {
+            if (err) {
+                reject(err);
+                db.close();  
+            }
+            console.log('ouverture BDD supprimerEvenement');
+        });
+
+    
+    
+    });
+
+    return custProm ; 
+}
+
 //Recuperation du nombre de participants
 function getNbPartipants(acronymeEvent) {
     const custProm = new Promise((resolve, reject) => {
@@ -211,3 +264,4 @@ function getNbPartipants(acronymeEvent) {
 exports.getEvenements = getEvenements ; 
 exports.getEvenementsCourants = getEvenementsCourants ; 
 exports.getInformationsEvenement = getInformationsEvenement ; 
+exports.ajouterEvenement = ajouterEvenement ; 
