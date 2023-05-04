@@ -11,6 +11,18 @@ import { ListerParticipantsComponent } from './lister-participants/lister-partic
 import { AjouterEvenementComponent } from './ajouter-evenement/ajouter-evenement.component';
 import { ApiProjetWebService } from './api-projet-web.service';
 import { HttpClientModule } from '@angular/common/http';
+import {RouterModule, Routes} from '@angular/router';
+
+const appRoutes: Routes = [
+  { path: 'listerEvenement', component: ListerEvenementsComponent},
+  { path: 'afficherStatistiques', component: AfficherStatistiquesComponent},
+  { path: 'ajouterEvenement', component: AjouterEvenementComponent},
+  { path: 'consulterEvenement', component: ConsulterEvenementComponent},
+  { path: 'detailsEvenement', component: DetailsEvenementComponent},
+  { path: 'inscriptionPersonne/:acronyme', component: InscriptionPersonneComponent},
+  { path: 'listerParticipants', component: ListerParticipantsComponent},
+  { path: '', redirectTo: 'listerEvenement', pathMatch: 'full'}
+]
 
 @NgModule({
   declarations: [
@@ -26,7 +38,8 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [ApiProjetWebService],
   bootstrap: [AppComponent]

@@ -35,6 +35,12 @@ app.post('/evenement/ajouter', async function(req, res) {
   }
 }); 
 
+//lister tout les evenements (GET)
+//Version sans chaîne de promise "faux asynchrone"
+app.get('/', async function(req, res) { 
+  res.status(200).json(await metierEvenement.getEvenements()) ; 
+}); 
+
 //Supprimer un evenement (DELETE)
 
 //lister tout les evenements (GET) => ok
@@ -54,9 +60,14 @@ app.get('/evenement/details/:acronymeEvent', async function(req, res) {
   res.status(200).json(await metierEvenement.getInformationsEvenement(acronyme)) ; 
 })
 
+//Afficher les personnes d'un évènement (GET)
+app.get('/personne/:acronymeEvenement/lister', async function(req, res) {
+  res.status(200).json(await metierParticipant.getParticipants(req.params.acronymeEvenement));
+});
+
 //Ajouter une personne (POST)
 
 //Demarrage du serveur sur le port 3000
 app.listen(3000, function() {
-  console.log('Server running') ; 
-}) ; 
+  console.log('Server running'); 
+}); 
