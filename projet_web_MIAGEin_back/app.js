@@ -1,6 +1,7 @@
 var express = require('express');
 var bodyparser = require('body-parser');
-var metier = require('./metierEvenement') ; 
+var metierEvenement = require('./metierEvenement');
+var metierParticipant = require('./metierParticipants');
 
 var app = express() ; 
 app.use(bodyparser.json());
@@ -21,22 +22,23 @@ app.all('*', function(req, res, next) {
 //lister tout les evenements (GET)
 //Version sans chaîne de promise "faux asynchrone"
 app.get('/', async function(req, res) { 
-  res.status(200).json(await metier.getEvenements()) ; 
+  res.status(200).json(await metierEvenement.getEvenements()) ; 
 }); 
 
 //Lister les evenements actifs (GET)
 
 //Lister les details d'un evenement (GET)
 
-//Afficher une personne (GET)
+//Afficher les personnes d'un évènement (GET)
+app.get('/personne/:acronymeEvenement/lister', async function(req, res) {
+  res.status(200).json(await metierParticipant.getParticipants(req.params.acronymeEvenement));
+});
 
-//Ajouter une personne (POST)
-
-//Supprimer une personne dans un evenement (DELETE)
+//Ajouter une personne à un évènement (POST)
 
 //Supprimer un evenement (DELETE)
 
 //Demarrage du serveur sur le port 3000
 app.listen(3000, function() {
-  console.log('Server running') ; 
-}) ; 
+  console.log('Server running'); 
+}); 
