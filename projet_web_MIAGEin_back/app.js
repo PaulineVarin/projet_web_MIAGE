@@ -16,6 +16,7 @@ app.all('*', function(req, res, next) {
 }); 
 
 //API REST
+//PARTIE EVENEMENT---------------------------------------
 
 //ajouter evenement (POST)
 app.post('/evenement/ajouter', async function(req, res) {
@@ -30,20 +31,31 @@ app.post('/evenement/ajouter', async function(req, res) {
     res.status(200).json(objRes) ; 
   }
   catch (error) {
-    console.log(error) ; 
-    //res.status(200).json("Erreur lors de l'insertion") ; 
+    res.status(200).json("Erreur lors de l'insertion") ; 
   }
 }); 
 
-//lister tout les evenements (GET)
-//Version sans chaîne de promise "faux asynchrone"
-app.get('/', async function(req, res) { 
-  res.status(200).json(await metierEvenement.getEvenements()) ; 
-}); 
-
 //Supprimer un evenement (DELETE)
+app.delete('/evenement/supprimer/:acronymeEvent', async function(req, res) {
+  //Récuperer les paramètres
+  var acronymeEvenement = req.params.acronymeEvent ; 
+  console.log(acronymeEvenement) ; 
 
-//lister tout les evenements (GET) => ok
+  //Effectuer le metier
+  console.log("Metier") ; 
+  try {
+    var objRes = await metierEvenement.supprimerEvenement(acronymeEvenement) ; 
+    //Forger le résultat
+    res.status(200).json(objRes) ; 
+  }
+  catch (error) {
+    console.log(error) ; 
+  }
+
+});
+
+
+//lister tout les evenements (GET)
 //Version sans chaîne de promise "faux asynchrone" 
 app.get('/evenement/lister', async function(req, res) { 
   res.status(200).json(await metierEvenement.getEvenements()) ; 
@@ -57,15 +69,34 @@ app.get('/evenement/lister/actifs', async function(req, res) {
 //Lister les details d'un evenement (GET)
 app.get('/evenement/details/:acronymeEvent', async function(req, res) {
   var acronyme = req.params.acronymeEvent ;
+  console.log(acronyme) ; 
   res.status(200).json(await metierEvenement.getInformationsEvenement(acronyme)) ; 
 })
 
-//Afficher les personnes d'un évènement (GET)
+
+//PARTIE PARTICIPANTS---------------------------------------
+
+//Lister les participants d'un évènement (GET)
 app.get('/personne/:acronymeEvenement/lister', async function(req, res) {
   res.status(200).json(await metierParticipant.getParticipants(req.params.acronymeEvenement));
 });
 
-//Ajouter une personne (POST)
+//Ajouter un participant (POST)
+app.post('/personne/ajouter', async function(req, res) {
+  //Récuperer les paramètres
+  var participant = req.body ; 
+  //Metier
+  console.log("Metier") ; 
+  try {
+    var objRes = await metierParticipant.ajouterParticipant(participant) ; 
+    //Forger le résultat
+    res.status(200).json(objRes) ; 
+  }
+  catch (error) {
+    res.status(200).json("Erreur lors de l'insertion") ; 
+  }
+});
+
 
 //Demarrage du serveur sur le port 3000
 app.listen(3000, function() {
