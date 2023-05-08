@@ -16,10 +16,11 @@
             <td>{{evt.nom}}</td>
             <td>{{evt.dateFermeture}}</td>
             <td>{{evt.dateEvenement}}</td>
-            <td>/{{evt.nbMaxParticipants}}</td>
+
+            <td>{{evt.nbParticipants}}/{{evt.nbMaxParticipants}}</td>
+            
             <td><button type="button" class="btn btn-outline-secondary" routerLink="/inscriptionPersonne/{{evt.acronyme}}">S'inscrire</button></td>
         </tr>
     </tbody>
 </table>
 
-<p class="bg-danger text-white">ATTENTION ICI ON RECUEPRE ENCORE TOUT LES EVENEMENTS - DOIT APPARAITRE UNIQUEMENT LES EVENEMENTS EN COURS</p>

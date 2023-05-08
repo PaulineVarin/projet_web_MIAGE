@@ -3,6 +3,8 @@ import {HttpClient} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Evenement } from './model/Evenement';
 
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -15,7 +17,19 @@ export class ApiProjetWebService {
   constructor(private httpClient: HttpClient) {}
   
   //recuperation des infos de l'API
-  public recupereListeEvenements(): Observable<Evenement[]> {
-    return this.httpClient.get<Evenement[]>(this.url + '/') ;
+
+  //Recuperation de tout les evenements
+  public recupererListeEvenements(): Observable<Evenement[]> {
+    return this.httpClient.get<Evenement[]>(this.url + '/evenement/lister') ;
+  }
+
+  //Recuperation des evenements
+  public recupererListeEvenementsCourants():Observable<Evenement[]> {
+    return this.httpClient.get<Evenement[]>(this.url + '/evenement/lister/actifs') ; 
+  }
+
+  //Recuperation des informations pour un evenement
+  public recupererInformationsEvenement(acronyme:string):Observable<Evenement> {
+    return this.httpClient.get<Evenement>(this.url+'/evenement/details/'+acronyme) ; 
   }
 }
