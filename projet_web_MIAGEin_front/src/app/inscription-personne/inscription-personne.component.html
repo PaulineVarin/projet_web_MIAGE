@@ -1,19 +1,19 @@
-<h1> Inscription à l'évènement [Insérer Nom Evènement] </h1>
+<h1> Inscription à l'évènement {{acronymeEvent}}</h1>
 
-<form >
+<form (ngSubmit)="rajoutParticipant()" ngNativeValidate>
     <div class="cadre">
 
         <label class="champs" for="nomP">Nom du participant :</label>
-        <input type="text" id="nomP"  required/>
+        <input type="text" id="nomP" [(ngModel)]="participant.nom" required/>
 
         <label class="champs" for="prenomP">Prénom du participant :</label>
-        <input type="text" id="prenomP"  required/>
+        <input type="text" id="prenomP" [(ngModel)]="participant.prenom" required/>
 
         <label class="champs" for="email">Email : </label>
-        <input type="text" id="email"  required/>
+        <input type="text" id="email" [(ngModel)]="participant.mail" required/>
 
         <label class="champs" for="numT">Numéro de téléphone : </label>
-        <input type="text" id="dateE"  required/>
+        <input type="text" id="dateE" [(ngModel)]="participant.numeroTelephone" required/>
     </div>
     
     <button class="boutonAnnuler" type="submit">Annuler</button>

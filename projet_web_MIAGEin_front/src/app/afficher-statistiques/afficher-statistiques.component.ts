@@ -18,6 +18,8 @@ export class AfficherStatistiquesComponent implements OnInit {
     this.apiProjetWeb.recupererListeEvenements().subscribe({
       next: data => this.listEvenements = data 
     }) ; 
+
+    
   }
 
 }
