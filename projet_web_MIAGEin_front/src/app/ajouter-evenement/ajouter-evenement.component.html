@@ -1,16 +1,32 @@
 <h1> Ajouter un évènement </h1>
-<table>
-    <tbody>    
-        <tr><td class="champs">Acronyme</td>                                <td class="donnees"><input type="text" id="name" name="name" required></td></tr>
-        <tr><td class="champs">Nom de l'évènement</td>                      <td class="donnees"><input type="text" id="name" name="name" required></td></tr>
-        <tr><td class="champs">Lieu de l'évènement</td>                     <td class="donnees"><input type="text" id="name" name="name" required></td></tr>
-        <tr><td class="champs">Description</td>                             <td class="donnees"><input type="text" id="name" name="name" required></td></tr>       
-        <tr><td class="champs">Date de l'évènement</td>                     <td class="donnees"><input type="text" id="name" name="name" required></td></tr>       
-        <tr><td class="champs">Date d'ouverture des inscriptions</td>       <td class="donnees"><input type="text" id="name" name="name" required></td></tr>       
-        <tr><td class="champs">Date de cloture des inscriptions</td>        <td class="donnees"><input type="text" id="name" name="name" required></td></tr>       
-        <tr><td class="champs">Nombre maximal de participants</td>          <td class="donnees"><input type="text" id="name" name="name" required></td></tr>       
+<form >
+    <div class="cadre">
+        <label class="champs" for="acronyme">Acronyme :</label>
+        <input type="text" id="acronyme" placeholder="Acronyme" required/>
 
-    </tbody>
-</table>
-<button class="boutonAnnuler" > Annuler </button>
-<button class="boutonConfirmer" > Confirmer </button>
+        <label class="champs" for="nomE">Nom de l'évènement :</label>
+        <input type="text" id="nomE" placeholder="Nom de l'évènement" required/>
+
+        <label class="champs" for="lieuE">Lieu de l'évènement :</label>
+        <input type="text" id="lieuE" placeholder="Lieu de l'évènement" required/>
+
+        <label class="champs" for="desc">Description : </label>
+        <input type="textarea" id="desc" placeholder="Description" required/>
+
+        <label class="champs" for="dateE">Date de l'évènement :</label>
+        <input type="text" id="dateE" placeholder="Date de l'évènement" required/>
+
+        <label class="champs" for="dateOuvertureI">Date d'ouverture des inscriptions :</label>
+        <input type="text" id="dateOuvertureI" placeholder="Date d'ouverture des inscriptions" required/>
+
+        <label class="champs" for="dateClotureI">Date de cloture des inscriptions :</label>
+        <input type="text" id="dateClotureI" placeholder="Date de cloture des inscriptions" required/>
+
+        <label class="champs" for="nbMaxP">Nombre maximal de participants :</label>
+        <input type="number" id="nbMaxP" placeholder="Nombre maximal de participants" required/>
+    </div>
+
+    <button class="boutonAnnuler" type="submit">Annuler</button>
+    <button class="boutonConfirmer" type="submit">Confirmer</button>
+   
+</form>
