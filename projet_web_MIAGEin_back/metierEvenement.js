@@ -1,5 +1,6 @@
 //Partie Metier
 var sqlite3 = require('sqlite3');
+var metierParticipant = require('./metierParticipants');
 
 
 //Constructeur model evenement
@@ -150,16 +151,14 @@ function getInformationsEvenement(acronymeEvenement) {
                 reject(err);
             }
             else {
-                let infosEvenement ; 
                 let evt ; 
                 //Recuperation du nombre de participants
                 let nbParticipants = await getNbPartipants(acronymeEvenement) ;
                 //Creation nouvel evenement
                 evt = new Evenement(row.acronyme, row.nom, row.adresse, row.description, row.dateOuverture, row.dateFermeture, row.dateEvenement,nbParticipants,row.nbMaxParticipants);  
-                infosEvenement.push([evt]); 
                 //Recuperer les informations sur l'ensemble des participants (liste contenant tout les participants) => en attente de la partie de Morgan
                 db.close() ; 
-                resolve(infosEvenement) ; 
+                resolve(evt) ; 
             }
         });
 
@@ -194,29 +193,42 @@ function ajouterEvenement(evenement) {
             }
         });
     });
+
     return custProm ; 
 }
 
 //Suppression d'un evenement
 function supprimerEvenement(acronymeEvenement) {
     const custProm = new Promise((resolve, reject) => {
-        //Suppression du lien entre les participants et l'evenement
-        sqlLienPE = 'DELETE FROM Participe WHERE acronyme = ?';
-        //Suppression de l'evenement
-        sql = 'DELETE FROM Evenemement WHERE acronyme= ?' ; 
-        
+        //ecriture de la requete
+        let sql = 'DELETE FROM evenement WHERE acronyme = ?' ; 
+
         //ouverture de la connexion
         let db = new sqlite3.Database('database/databaseProject.db', err => {
             if (err) {
                 reject(err);
                 db.close();  
             }
-            console.log('ouverture BDD supprimerEvenement');
+            console.log('ouverture BDD suppression E');
         });
 
     
-    
+        db.run(sql, [acronymeEvenement], async (err) => {
+            await metierParticipant.supprimerParticipants(acronymeEvenement) ; 
+            if (err) {
+                reject(err);
+                console.log(error)
+                db.close();  
+            }
+
+            else {
+                console.log("2eme requete ok") ;
+                db.close() ;
+                resolve() ; 
+            }
+        });
     });
+    
 
     return custProm ; 
 }
@@ -265,3 +277,4 @@ exports.getEvenements = getEvenements ;
 exports.getEvenementsCourants = getEvenementsCourants ; 
 exports.getInformationsEvenement = getInformationsEvenement ; 
 exports.ajouterEvenement = ajouterEvenement ; 
+exports.supprimerEvenement = supprimerEvenement ; 

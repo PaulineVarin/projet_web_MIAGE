@@ -12,6 +12,7 @@ import { AjouterEvenementComponent } from './ajouter-evenement/ajouter-evenement
 import { ApiProjetWebService } from './api-projet-web.service';
 import { HttpClientModule } from '@angular/common/http';
 import {RouterModule, Routes} from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 const appRoutes: Routes = [
   { path: 'listerEvenement', component: ListerEvenementsComponent},
@@ -39,7 +40,8 @@ const appRoutes: Routes = [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    FormsModule
   ],
   providers: [ApiProjetWebService],
   bootstrap: [AppComponent]
