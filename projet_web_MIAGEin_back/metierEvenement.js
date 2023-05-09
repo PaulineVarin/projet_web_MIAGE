@@ -198,7 +198,9 @@ function ajouterEvenement(evenement) {
 }
 
 //Suppression d'un evenement
-function supprimerEvenement(acronymeEvenement) {
+async function supprimerEvenement(acronymeEvenement) {
+    await metierParticipant.supprimerParticipants(acronymeEvenement) ; 
+    
     const custProm = new Promise((resolve, reject) => {
         //ecriture de la requete
         let sql = 'DELETE FROM evenement WHERE acronyme = ?' ; 
@@ -212,9 +214,7 @@ function supprimerEvenement(acronymeEvenement) {
             console.log('ouverture BDD suppression E');
         });
 
-    
         db.run(sql, [acronymeEvenement], async (err) => {
-            await metierParticipant.supprimerParticipants(acronymeEvenement) ; 
             if (err) {
                 reject(err);
                 console.log(error)
@@ -253,7 +253,6 @@ function getNbPartipants(acronymeEvent) {
                 reject(err);
             }
             else {
-                console.log("resolve");
                 resolve(row.res) ; 
             }
         });

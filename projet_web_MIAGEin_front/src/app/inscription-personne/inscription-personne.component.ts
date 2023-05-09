@@ -3,6 +3,7 @@ import { ApiProjetWebService } from '../api-projet-web.service';
 import { Participant } from '../model/Participant';
 import { ActivatedRoute } from '@angular/router';
 
+
 @Component({
   selector: 'app-inscription-personne',
   templateUrl: './inscription-personne.component.html',
@@ -10,25 +11,37 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class InscriptionPersonneComponent implements OnInit {
   //mise en place des elements pour la page
-  acronymeEvent:String = '' ; 
-
-
-  //mise en place de la recuperation des informations a envoyer a l'API
-  participant:Participant = new Participant() ; 
+  acronymeEvent:String = "" ; 
+  participantModel:Participant = new Participant();
+  resPost = {"existeParticipant":true, "liaison":true};
+  envoiFomulaire = false ; 
 
   constructor(private apiProjetWeb:ApiProjetWebService,
               private routeActive: ActivatedRoute) {}
-
 
   ngOnInit(): void {
     this.acronymeEvent = this.routeActive.snapshot.params['acronyme'] ; 
   }
 
-  rajoutParticipant():void {
-    this.acronymeEvent = "Bouton marche" ; 
-    //this.apiProjetWeb.ajouterParticipant(this.participant) ; 
+  rajoutParticipant() {
+      console.log("Debut rajoutParticpant"); 
+      //Récupération d'un Observable auquel on se souscrit, on récupère le JSON si valide, sinon on gère l'erreur
+      this.apiProjetWeb.ajouterParticipant(this.acronymeEvent, this.participantModel).subscribe(
+        (data) => {
+                    let listValues = Object.values(data);
+                    this.resPost.existeParticipant =  listValues[0];
+                    this.resPost.liaison = listValues[1];
+                    this.envoiFomulaire = true ; 
+                  },
+        (err) => this.handleError()
+      );
+      console.log("Fin rajoutParticpant");
   }
 
+  handleError(){
+    //afficher un message d'erreur
+    console.log("Mauvaise saisie")
+  }
 
 
 }
