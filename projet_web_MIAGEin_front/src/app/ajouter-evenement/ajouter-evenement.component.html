@@ -1,32 +1,34 @@
 <h1> Ajouter un évènement </h1>
-<form >
+<form ngNativeValidate>
     <div class="cadre">
         <label class="champs" for="acronyme">Acronyme :</label>
-        <input type="text" id="acronyme" placeholder="Acronyme" required/>
+        <input type="text" id="acronyme" placeholder="Acronyme" [(ngModel)]="evenementModel.acronyme" [ngModelOptions]="{standalone: true}"required/>
 
         <label class="champs" for="nomE">Nom de l'évènement :</label>
-        <input type="text" id="nomE" placeholder="Nom de l'évènement" required/>
+        <input type="text" id="nomE" placeholder="Nom de l'évènement" [(ngModel)]="evenementModel.nom" [ngModelOptions]="{standalone: true}" required/>
 
         <label class="champs" for="lieuE">Lieu de l'évènement :</label>
-        <input type="text" id="lieuE" placeholder="Lieu de l'évènement" required/>
+        <input type="text" id="lieuE" placeholder="Lieu de l'évènement" [(ngModel)]="evenementModel.adresse" [ngModelOptions]="{standalone: true}" required/>
 
         <label class="champs" for="desc">Description : </label>
-        <input type="textarea" id="desc" placeholder="Description" required/>
+        <input type="textarea" id="desc" placeholder="Description" [(ngModel)]="evenementModel.description" [ngModelOptions]="{standalone: true}" required/>
 
         <label class="champs" for="dateE">Date de l'évènement :</label>
-        <input type="text" id="dateE" placeholder="Date de l'évènement" required/>
+        <input type="text" id="dateE" placeholder="Date de l'évènement" [(ngModel)]="evenementModel.dateEvenement" [ngModelOptions]="{standalone: true}" required/>
 
         <label class="champs" for="dateOuvertureI">Date d'ouverture des inscriptions :</label>
-        <input type="text" id="dateOuvertureI" placeholder="Date d'ouverture des inscriptions" required/>
+        <input type="text" id="dateOuvertureI" placeholder="Date d'ouverture des inscriptions" [(ngModel)]="evenementModel.dateOuverture" [ngModelOptions]="{standalone: true}"  required/>
 
         <label class="champs" for="dateClotureI">Date de cloture des inscriptions :</label>
-        <input type="text" id="dateClotureI" placeholder="Date de cloture des inscriptions" required/>
+        <input type="text" id="dateClotureI" placeholder="Date de cloture des inscriptions" [(ngModel)]="evenementModel.dateFermeture" [ngModelOptions]="{standalone: true}" required/>
 
         <label class="champs" for="nbMaxP">Nombre maximal de participants :</label>
-        <input type="number" id="nbMaxP" placeholder="Nombre maximal de participants" required/>
+        <input type="number" id="nbMaxP" placeholder="Nombre maximal de participants"  [(ngModel)]="evenementModel.nbMaxParticipants" [ngModelOptions]="{standalone: true}" required min="0"/>
     </div>
 
     <button class="boutonAnnuler" type="submit" routerLink="/afficherStatistiques">Annuler</button>
     <button class="boutonConfirmer" type="submit" routerLink="/afficherStatistiques">Confirmer</button>
    
 </form>
+
+<pre>{{evenementModel | json}}</pre>
