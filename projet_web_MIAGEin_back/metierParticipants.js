@@ -43,7 +43,6 @@ function getParticipants(acronymeEvent) {
                         //Pour chaque ligne récupérer l'ensemble des participants
                         rows.forEach( async (row, index, array) => {
                             //Creation de l'objet participant
-                            console.log(row)  ;
                             part = new Participant(row.nom, row.prenom, row.mail, row.numeroTelephone); 
                             listParticipants.push(part) ; 
                             //Une fois arrivé à la fin de la liste, renvoyer une réponse avec l'ensemble des participants
@@ -76,8 +75,8 @@ function getParticipants(acronymeEvent) {
 
 async function ajouterParticipant(pacronyme, pparticipant) {
     //Verification de l'existance du participant
-    let resExisteP = await participantExiste(pparticipant.mail) ; 
-
+    let resExisteP = await participantExiste(pparticipant.mail) ;
+    
     //JSON qui contient le deroulement de l'execution de la methode
     let resOperation = {}; 
 

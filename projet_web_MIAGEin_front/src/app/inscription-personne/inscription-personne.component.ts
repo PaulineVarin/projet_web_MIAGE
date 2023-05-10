@@ -13,8 +13,11 @@ export class InscriptionPersonneComponent implements OnInit {
   //mise en place des elements pour la page
   acronymeEvent:String = "" ; 
   participantModel:Participant = new Participant();
+
   resPost = {"existeParticipant":true, "liaison":true};
   envoiFomulaire = false ; 
+  erreurFormulaire=false ;  
+  
 
   constructor(private apiProjetWeb:ApiProjetWebService,
               private routeActive: ActivatedRoute) {}
@@ -25,13 +28,13 @@ export class InscriptionPersonneComponent implements OnInit {
 
   rajoutParticipant() {
       console.log("Debut rajoutParticpant"); 
+      this.envoiFomulaire = true ; 
       //Récupération d'un Observable auquel on se souscrit, on récupère le JSON si valide, sinon on gère l'erreur
       this.apiProjetWeb.ajouterParticipant(this.acronymeEvent, this.participantModel).subscribe(
         (data) => {
                     let listValues = Object.values(data);
                     this.resPost.existeParticipant =  listValues[0];
                     this.resPost.liaison = listValues[1];
-                    this.envoiFomulaire = true ; 
                   },
         (err) => this.handleError()
       );
@@ -39,8 +42,7 @@ export class InscriptionPersonneComponent implements OnInit {
   }
 
   handleError(){
-    //afficher un message d'erreur
-    console.log("Mauvaise saisie")
+    this.erreurFormulaire = true ; 
   }
 
 
