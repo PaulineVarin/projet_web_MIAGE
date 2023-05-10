@@ -18,7 +18,7 @@ const appRoutes: Routes = [
   { path: 'listerEvenement', component: ListerEvenementsComponent},
   { path: 'afficherStatistiques', component: AfficherStatistiquesComponent},
   { path: 'ajouterEvenement', component: AjouterEvenementComponent},
-  { path: 'consulterEvenement', component: ConsulterEvenementComponent},
+  { path: 'consulterEvenement/:acronyme', component: ConsulterEvenementComponent},
   { path: 'detailsEvenement', component: DetailsEvenementComponent},
   { path: 'inscriptionPersonne/:acronyme', component: InscriptionPersonneComponent},
   { path: 'listerParticipants', component: ListerParticipantsComponent},
