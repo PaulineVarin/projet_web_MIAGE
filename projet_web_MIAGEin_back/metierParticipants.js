@@ -76,7 +76,7 @@ function getParticipants(acronymeEvent) {
 async function ajouterParticipant(pacronyme, pparticipant) {
     //Verification de l'existance du participant
     let resExisteP = await participantExiste(pparticipant.mail) ;
-    
+
     //JSON qui contient le deroulement de l'execution de la methode
     let resOperation = {}; 
 
