@@ -198,7 +198,9 @@ function ajouterEvenement(evenement) {
 }
 
 //Suppression d'un evenement
-function supprimerEvenement(acronymeEvenement) {
+async function supprimerEvenement(acronymeEvenement) {
+    await metierParticipant.supprimerParticipants(acronymeEvenement) ; 
+    
     const custProm = new Promise((resolve, reject) => {
         //ecriture de la requete
         let sql = 'DELETE FROM evenement WHERE acronyme = ?' ; 
@@ -212,9 +214,7 @@ function supprimerEvenement(acronymeEvenement) {
             console.log('ouverture BDD suppression E');
         });
 
-    
         db.run(sql, [acronymeEvenement], async (err) => {
-            await metierParticipant.supprimerParticipants(acronymeEvenement) ; 
             if (err) {
                 reject(err);
                 console.log(error)
@@ -253,7 +253,43 @@ function getNbPartipants(acronymeEvent) {
                 reject(err);
             }
             else {
-                console.log("resolve");
+                resolve(row.res) ; 
+            }
+        });
+        
+        //Fermeture de la connexion
+        db.close((err) => {
+            if (err) {
+              return err ; 
+            }
+            console.log('Close the database connection.');
+        });
+
+    }); 
+
+    return custProm;
+}
+
+//Recuperation du nombre d'evenements
+function getNbEvenements() {
+    const custProm = new Promise((resolve, reject) => {
+        //recuperation de l'information
+        let sql = 'SELECT COUNT(*) as res FROM Evenement' ;
+
+        //ouverture de la connexion
+        let db = new sqlite3.Database('database/databaseProject.db', err => {
+            if (err) {
+                reject(err);
+                db.close();  
+            }
+            console.log('ouverture BDD nb evenements');
+        });
+
+        db.get(sql, (err,row) => {
+            if (err) {
+                reject(err);
+            }
+            else {
                 resolve(row.res) ; 
             }
         });
@@ -275,6 +311,7 @@ function getNbPartipants(acronymeEvent) {
         
 exports.getEvenements = getEvenements ; 
 exports.getEvenementsCourants = getEvenementsCourants ; 
-exports.getInformationsEvenement = getInformationsEvenement ; 
+exports.getInformationsEvenement = getInformationsEvenement ;
+exports.getNbEvenements = getNbEvenements ;  
 exports.ajouterEvenement = ajouterEvenement ; 
 exports.supprimerEvenement = supprimerEvenement ; 

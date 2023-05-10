@@ -10,6 +10,8 @@ import { ApiProjetWebService } from '../api-projet-web.service';
 export class AfficherStatistiquesComponent implements OnInit {
   //mise en place de la recuperation des infos provenant de l'API via le service
   listEvenements:Evenement[] = [];
+  nbEvenements:number = 0 ; 
+  nbParticipantsMoyens:number = 0 ; 
   
 
   constructor(private apiProjetWeb:ApiProjetWebService) {}
@@ -18,6 +20,10 @@ export class AfficherStatistiquesComponent implements OnInit {
     this.apiProjetWeb.recupererListeEvenements().subscribe({
       next: data => this.listEvenements = data 
     }) ; 
+
+    this.apiProjetWeb.recupererNbEvenements().subscribe({
+      next: data => this.nbEvenements = data 
+    })
 
     
   }

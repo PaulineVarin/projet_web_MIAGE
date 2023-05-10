@@ -31,15 +31,14 @@ app.post('/evenement/ajouter', async function(req, res) {
     res.status(200).json(objRes) ; 
   }
   catch (error) {
-    res.status(200).json("Erreur lors de l'insertion") ; 
+    res.status(404).json("ERR") ; 
   }
 }); 
 
 //Supprimer un evenement (DELETE)
 app.delete('/evenement/supprimer/:acronymeEvent', async function(req, res) {
   //Récuperer les paramètres
-  var acronymeEvenement = req.params.acronymeEvent ; 
-  console.log(acronymeEvenement) ; 
+  var acronymeEvenement = req.params.acronymeEvent ;
 
   //Effectuer le metier
   console.log("Metier") ; 
@@ -64,14 +63,18 @@ app.get('/evenement/lister', async function(req, res) {
 //Lister les evenements actifs (GET)
 app.get('/evenement/lister/actifs', async function(req, res) {
   res.status(200).json(await metierEvenement.getEvenementsCourants())
-})
+});
 
 //Lister les details d'un evenement (GET)
 app.get('/evenement/details/:acronymeEvent', async function(req, res) {
   var acronyme = req.params.acronymeEvent ;
-  console.log(acronyme) ; 
   res.status(200).json(await metierEvenement.getInformationsEvenement(acronyme)) ; 
-})
+});
+
+//Compter tout les evenements
+app.get('/evenement/lister/all', async function(req, res) {
+  res.status(200).json(await metierEvenement.getNbEvenements()) ; 
+}); 
 
 
 //PARTIE PARTICIPANTS---------------------------------------
@@ -84,16 +87,17 @@ app.get('/personne/:acronymeEvenement/lister', async function(req, res) {
 //Ajouter un participant (POST)
 app.post('/personne/ajouter', async function(req, res) {
   //Récuperer les paramètres
-  var participant = req.body ; 
+  var participant = req.body[1] ;
+  var acronymeE = req.body[0] ; 
   //Metier
   console.log("Metier") ; 
   try {
-    var objRes = await metierParticipant.ajouterParticipant(participant) ; 
+    var objRes = await metierParticipant.ajouterParticipant(acronymeE, participant) ; 
     //Forger le résultat
     res.status(200).json(objRes) ; 
   }
   catch (error) {
-    res.status(200).json("Erreur lors de l'insertion") ; 
+    res.status(404).json("ERR") ; 
   }
 });
 
