@@ -14,7 +14,7 @@ export class Evenement {
         this.nom="";
         this.adresse="";
         this.description="";
-        this.dateOuverture= new Date() ;
+        this.dateOuverture= new Date();
         this.dateFermeture=new Date() ; 
         this.dateEvenement=new Date() ; 
         this.nbParticipants=0 ; 
