@@ -1,5 +1,5 @@
 <div>
-    <button type="button" class="btn btn-outline-secondary">Ajouter</button>
+    <button type="button" class="btn btn-outline-secondary" routerLink="/ajouterEvenement">Ajouter</button>
     <p>{{nbEvenements}} évènements</p>
     <p>{{nbParticipantsMoyens}} participants en moyenne par évènement</p>
 </div>
@@ -21,7 +21,7 @@
             <td>{{evt.dateFermeture}}</td>
             <td>{{evt.dateEvenement}}</td>
             <td>{{evt.nbParticipants}}/{{evt.nbMaxParticipants}}</td>
-            <td><button type="button" class="btn btn-outline-secondary">Consulter</button></td>
+            <td><button type="button" class="btn btn-outline-secondary" routerLink="/consulterEvenement/{{evt.acronyme}}">Consulter</button></td>
         </tr>
     </tbody>
 </table>

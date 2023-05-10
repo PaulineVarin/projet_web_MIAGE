@@ -1,36 +1,23 @@
-<h1> Inscription à l'évènement {{acronymeEvent}}</h1>
+<h1> Inscription à l'évènement [Insérer Nom Evènement] </h1>
 
-<form (ngSubmit)="rajoutParticipant()" ngNativeValidate>
+<form >
     <div class="cadre">
 
         <label class="champs" for="nomP">Nom du participant :</label>
-        <input type="text" id="nomP" [(ngModel)]="participantModel.nom" [ngModelOptions]="{standalone: true}" required/>
+        <input type="text" id="nomP"  required/>
 
         <label class="champs" for="prenomP">Prénom du participant :</label>
-        <input type="text" id="prenomP" [(ngModel)]="participantModel.prenom" [ngModelOptions]="{standalone: true}" required/>
+        <input type="text" id="prenomP"  required/>
 
         <label class="champs" for="email">Email : </label>
-        <input type="email" id="email" [(ngModel)]="participantModel.mail" [ngModelOptions]="{standalone: true}" required/>
+        <input type="text" id="email"  required/>
 
         <label class="champs" for="numT">Numéro de téléphone : </label>
-        <input type="text" id="dateE" [(ngModel)]="participantModel.numeroTelephone" [ngModelOptions]="{standalone: true}" required/>
+        <input type="text" id="dateE"  required/>
     </div>
     
-    <button class="boutonAnnuler" type="submit">Annuler</button>
-    <button class="boutonConfirmer" type="submit">Confirmer</button>
+    <button class="boutonAnnuler" type="submit" routerLink="/listerEvenement">Annuler</button>
+    <button class="boutonConfirmer" type="submit" routerLink="/listerEvenement">Confirmer</button>
+   
 </form>
-
-<div *ngIf="envoiFomulaire && !erreurFormulaire">
-    <p class="bg-info" text-white> {{resPost.existeParticipant == true ? 'Participant déjà existant, pas de création de compte':"Creation du compte effectué"}}</p>
-    <p class="bg-info" text-white>{{resPost.liaison == false ? 'Participation déjà enregistré. Pas de nouvelle inscription':"Inscription à l'évènement confirmée"}}</p>
-</div>
-
-<div *ngIf="envoiFomulaire && erreurFormulaire">
-    <p class="bg-info" text-white>Erreur lors de la prise en compte de l'inscription, merci de contacter votre administrateur</p>
-</div>
-
-
-
-
-
 
