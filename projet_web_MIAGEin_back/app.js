@@ -63,13 +63,18 @@ app.get('/evenement/lister', async function(req, res) {
 //Lister les evenements actifs (GET)
 app.get('/evenement/lister/actifs', async function(req, res) {
   res.status(200).json(await metierEvenement.getEvenementsCourants())
-})
+});
 
 //Lister les details d'un evenement (GET)
 app.get('/evenement/details/:acronymeEvent', async function(req, res) {
   var acronyme = req.params.acronymeEvent ;
   res.status(200).json(await metierEvenement.getInformationsEvenement(acronyme)) ; 
-})
+});
+
+//Compter tout les evenements
+app.get('/evenement/lister/all', async function(req, res) {
+  res.status(200).json(await metierEvenement.getNbEvenements()) ; 
+}); 
 
 
 //PARTIE PARTICIPANTS---------------------------------------

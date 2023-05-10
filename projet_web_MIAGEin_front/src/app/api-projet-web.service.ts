@@ -35,6 +35,10 @@ export class ApiProjetWebService {
     return this.httpClient.get<Evenement>(this.url+'/evenement/details/'+acronyme) ; 
   }
 
+  public recupererNbEvenements():Observable<number> {
+    return this.httpClient.get<number>(this.url+'/evenement/lister/all') ; 
+  }
+
   //Envoi et recuperation des infos de l'API pour l'ajout d'un participant a un evenement
   public ajouterParticipant(pacronyme:String, pparticipant:Participant) {
     console.log("HELLO SERVICE WEB") ; 

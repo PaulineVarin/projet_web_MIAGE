@@ -270,10 +270,48 @@ function getNbPartipants(acronymeEvent) {
     return custProm;
 }
 
+//Recuperation du nombre d'evenements
+function getNbEvenements() {
+    const custProm = new Promise((resolve, reject) => {
+        //recuperation de l'information
+        let sql = 'SELECT COUNT(*) as res FROM Evenement' ;
+
+        //ouverture de la connexion
+        let db = new sqlite3.Database('database/databaseProject.db', err => {
+            if (err) {
+                reject(err);
+                db.close();  
+            }
+            console.log('ouverture BDD nb evenements');
+        });
+
+        db.get(sql, (err,row) => {
+            if (err) {
+                reject(err);
+            }
+            else {
+                resolve(row.res) ; 
+            }
+        });
+        
+        //Fermeture de la connexion
+        db.close((err) => {
+            if (err) {
+              return err ; 
+            }
+            console.log('Close the database connection.');
+        });
+
+    }); 
+
+    return custProm;
+}
+
 
         
 exports.getEvenements = getEvenements ; 
 exports.getEvenementsCourants = getEvenementsCourants ; 
-exports.getInformationsEvenement = getInformationsEvenement ; 
+exports.getInformationsEvenement = getInformationsEvenement ;
+exports.getNbEvenements = getNbEvenements ;  
 exports.ajouterEvenement = ajouterEvenement ; 
 exports.supprimerEvenement = supprimerEvenement ; 
