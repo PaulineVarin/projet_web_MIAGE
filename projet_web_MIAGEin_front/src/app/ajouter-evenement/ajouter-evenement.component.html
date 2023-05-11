@@ -1,5 +1,5 @@
 <h1> Ajouter un évènement </h1>
-<form ngNativeValidate>
+<form ngNativeValidate (ngSubmit)="rajoutEvenement()">
     <div class="container">
     <div class="row cadre">
         <div class="col-6 mt-3">
@@ -29,19 +29,19 @@
         <div class="col-6 mt-3">
             <div class="input-group row">
                 <label class="champs" for="dateE">Date de l'évènement :</label>
-                <input type="datetime-local" id="dateE" placeholder="Date de l'évènement" [(ngModel)]="evenementModel.dateEvenement" [ngModelOptions]="{standalone: true}" required/>
+                <input type="date" id="dateE" placeholder="Date de l'évènement" [(ngModel)]="evenementModel.dateEvenement" [ngModelOptions]="{standalone: true}" required/>
             </div>
         </div>
         <div class="col-6 mt-3">
             <div class="input-group row">
                 <label class="champs" for="dateOuvertureI">Date d'ouverture des inscriptions :</label>
-                <input type="datetime-local" id="dateOuvertureI" placeholder="Date d'ouverture des inscriptions" [(ngModel)]="evenementModel.dateOuverture" [ngModelOptions]="{standalone: true}"  required/>
+                <input type="date" id="dateOuvertureI" placeholder="Date d'ouverture des inscriptions" [(ngModel)]="evenementModel.dateOuverture" [ngModelOptions]="{standalone: true}"  required/>
             </div>
         </div>
         <div class="col-6 mt-3">
             <div class="input-group row">
                 <label class="champs" for="dateClotureI">Date de cloture des inscriptions :</label>
-                <input type="datetime-local" id="dateClotureI" placeholder="Date de cloture des inscriptions" [(ngModel)]="evenementModel.dateFermeture" [ngModelOptions]="{standalone: true}" required/>
+                <input type="date" id="dateClotureI" placeholder="Date de cloture des inscriptions" [(ngModel)]="evenementModel.dateFermeture" [ngModelOptions]="{standalone: true}" required/>
             </div>
         </div>
         <div class="col-6 mt-3">
