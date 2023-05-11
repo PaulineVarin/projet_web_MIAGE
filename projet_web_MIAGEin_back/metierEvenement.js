@@ -56,7 +56,7 @@ function getEvenements () {
                             resolve(listEvenements);
                         } 
                     });
-                })
+                });
                 
                 //Lorsque la réponse des participants pour chaque ligne est donnée, renvoyer la réponse (liste) récupérée
                 custPromListe.then(function(){
@@ -69,7 +69,6 @@ function getEvenements () {
         });
               
     });
-
     return custProm;
 };
 
@@ -119,10 +118,8 @@ function getEvenementsCourants() {
                     db.close();  
                     resolve(custPromListe);
                 });
-
             }  
-        });
-              
+        });       
     });
 
     return custProm;

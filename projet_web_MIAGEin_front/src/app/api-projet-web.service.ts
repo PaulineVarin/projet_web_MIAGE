@@ -33,6 +33,7 @@ export class ApiProjetWebService {
     return this.httpClient.get<Evenement>(this.url+'/evenement/details/'+acronyme) ; 
   }
 
+  //Recuperer le nombre d'evenements
   public recupererNbEvenements():Observable<number> {
     return this.httpClient.get<number>(this.url+'/evenement/lister/all') ; 
   }
@@ -44,10 +45,27 @@ export class ApiProjetWebService {
     return this.httpClient.post<JSON>(this.url+'/personne/ajouter', [pacronyme, pparticipant]);
   }
 
+  //Suppression d'un evenement
+  public supprimerEvenement(pacronyme:String) {
+    console.log("Hello Suppression evenement")
+    return this.httpClient.delete<JSON>(this.url+'/evenement/supprimer/'+pacronyme) ; 
+  }
+
+
+  //recuperation des infos de l'API pour les participants
+
   //Envoi et recuperation des infos de l'API pour l'ajout d'un participant a un evenement
   public ajouterEvenement(pEvenement:Evenement) {
     console.log("HELLO ajouterEvenement service") ;
     //Retourne un JSON qui contient le detail des etapes ou une erreur qui est gérée dans la souscription du component
     return this.httpClient.post<JSON>(this.url+'/evenement/ajouter', pEvenement);
+  }
+
+  //Recuperation de la liste des participants pour un evenement
+  public listerParticipants(acronymeE:String):Observable<Participant[]> {
+    console.log("HELLO lister personnes service") ;
+    //retourne la liste des participants pour un evenement
+    return this.httpClient.get<Participant[]>(this.url + '/personne/'+acronymeE+'/lister') ;
+
   }
 }
