@@ -3,20 +3,20 @@ export class Evenement {
     nom:string;
     adresse:string;
     description:string ; 
-    dateOuverture:Date;
-    dateFermeture:Date;
+    dateOuverture:String;
+    dateFermeture:String;
     nbMaxParticipants:number;
     nbParticipants:number;
-    dateEvenement:Date;
+    dateEvenement:String;
 
     constructor () {
         this.acronyme ="";
         this.nom="";
         this.adresse="";
         this.description="";
-        this.dateOuverture= new Date();
-        this.dateFermeture=new Date() ; 
-        this.dateEvenement=new Date() ; 
+        this.dateOuverture="";
+        this.dateFermeture="" ; 
+        this.dateEvenement="" ; 
         this.nbParticipants=0 ; 
         this.nbMaxParticipants=0;
     }

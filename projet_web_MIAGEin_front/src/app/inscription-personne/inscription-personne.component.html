@@ -31,9 +31,8 @@
         </div>    
             
     </div>
-</div>   
-    <button class="boutonAnnuler" type="submit" routerLink="/listerEvenement">Annuler</button>
-    <button class="boutonConfirmer" type="submit"><span>Confirmer</span></button>
+    <button class="boutonAnnuler" type="submit" routerLink="/listerEvenement">{{envoiFomulaire==true ? 'Retour':'Annuler'}}</button>
+    <button class="boutonConfirmer" type="submit">Confirmer</button>
 </form>
 
 

@@ -58,4 +58,12 @@
    
 </form>
 
-<pre>{{evenementModel | json}}</pre>
+<div *ngIf="envoiFomulaire && !erreurFormulaire">
+    <p class="bg-info" text-white> {{resPost.evenementExiste == true ? 'Evenement déjà existant, pas de création':"Creation effectué"}}</p>
+</div>
+
+
+<div *ngIf="envoiFomulaire && erreurFormulaire">
+    <p class="bg-info" text-white>Erreur lors de la prise en compte de la création de l'évènement, merci de contacter votre administrateur</p>
+</div>
+
