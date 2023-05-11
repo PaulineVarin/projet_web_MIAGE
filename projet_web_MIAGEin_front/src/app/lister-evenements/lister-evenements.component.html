@@ -17,10 +17,13 @@
             <td>{{evt.dateFermeture}}</td>
             <td>{{evt.dateEvenement}}</td>
             <td>{{evt.nbParticipants}}/{{evt.nbMaxParticipants}}</td>
-            
-            <div *ngIf="evt.nbParticipants < evt.nbMaxParticipants; else elseBlock"><td><button type="button" class="btn btn-outline-secondary" routerLink="/inscriptionPersonne/{{evt.acronyme}}">S'inscrire</button></td></div>
-            <ng-template #elseBlock><td><button type="button" class="btn btn-danger">Complet</button></td></ng-template>
+
+            <div *ngIf="evt.nbParticipants < evt.nbMaxParticipants; else elseBlock">
+                <td><button type="button" class="btn btn-outline-secondary" routerLink="/inscriptionPersonne/{{evt.acronyme}}">S'inscrire</button></td>
+            </div>
+            <ng-template #elseBlock>
+                <td><button type="button" class="btn btn-danger">Complet</button></td>
+            </ng-template>
         </tr>
     </tbody>
 </table>
-

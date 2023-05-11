@@ -9,13 +9,13 @@ import { ApiProjetWebService } from '../api-projet-web.service';
 })
 export class ListerEvenementsComponent implements OnInit {
   //mise en place de la recuperation des infos provenant de l'API via le service
-  listEvenements:Evenement[] = [];
+  listEvenements: Evenement[] = [];
 
-  constructor(private apiProjetWeb:ApiProjetWebService) {}
+  constructor(private apiProjetWeb: ApiProjetWebService) { }
 
   ngOnInit(): void {
     this.apiProjetWeb.recupererListeEvenementsCourants().subscribe({
-      next: data => this.listEvenements = data 
-    }) ; 
+      next: data => this.listEvenements = data
+    });
   }
 }

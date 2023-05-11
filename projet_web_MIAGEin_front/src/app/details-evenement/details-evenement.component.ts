@@ -10,18 +10,18 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class DetailsEvenementComponent implements OnInit {
   //mise en place de la recuperation des infos provenant de l'API via le service
-  evenement:Evenement = new Evenement() ; 
-  
+  evenement: Evenement = new Evenement();
 
-  constructor(private apiProjetWeb:ApiProjetWebService,
-              private routeActive: ActivatedRoute) {}
+
+  constructor(private apiProjetWeb: ApiProjetWebService,
+    private routeActive: ActivatedRoute) { }
 
 
   ngOnInit(): void {
-    let acronyme = this.routeActive.snapshot.params['acronyme'] ; 
+    let acronyme = this.routeActive.snapshot.params['acronyme'];
     this.apiProjetWeb.recupererInformationsEvenement(acronyme).subscribe({
-      next: data => this.evenement = data 
-    }) ; 
+      next: data => this.evenement = data
+    });
   }
 
 
