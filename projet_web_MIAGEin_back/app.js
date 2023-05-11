@@ -30,6 +30,7 @@ app.post('/evenement/ajouter', async function(req, res) {
     //Forger le résultat
     res.status(200).json(objRes) ; 
   }
+
   catch (error) {
     res.status(404).json("ERR") ; 
   }
@@ -48,7 +49,7 @@ app.delete('/evenement/supprimer/:acronymeEvent', async function(req, res) {
     res.status(200).json(objRes) ; 
   }
   catch (error) {
-    console.log(error) ; 
+    res.status(404).json("ERR") ; 
   }
 
 });
@@ -100,6 +101,9 @@ app.post('/personne/ajouter', async function(req, res) {
     res.status(404).json("ERR") ; 
   }
 });
+
+//Calculer la moyenne des participants par evenements
+
 
 
 //Demarrage du serveur sur le port 3000

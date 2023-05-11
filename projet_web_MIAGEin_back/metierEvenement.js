@@ -56,7 +56,7 @@ function getEvenements () {
                             resolve(listEvenements);
                         } 
                     });
-                })
+                });
                 
                 //Lorsque la réponse des participants pour chaque ligne est donnée, renvoyer la réponse (liste) récupérée
                 custPromListe.then(function(){
@@ -69,7 +69,6 @@ function getEvenements () {
         });
               
     });
-
     return custProm;
 };
 
@@ -119,10 +118,8 @@ function getEvenementsCourants() {
                     db.close();  
                     resolve(custPromListe);
                 });
-
             }  
-        });
-              
+        });       
     });
 
     return custProm;
@@ -168,30 +165,45 @@ function getInformationsEvenement(acronymeEvenement) {
 
 
 //Ajout d'un nouveau evenement
-function ajouterEvenement(evenement) {
+async function ajouterEvenement(evenement) {
+    //tester si l'evenement n'existe pas deja
+    let resExisteE = await evenementExiste(evenement.acronyme) ;  
+    //JSON qui contient le deroulement de l'execution de la methode
+    let resOperation = {}; 
+
     const custProm = new Promise((resolve, reject) => {
-        //Insertion de l'evenement
-        let sql = 'INSERT INTO Evenement VALUES(?, ?, ?, ? , ?, ?, ?, ?)' ; 
+        if(resExisteE) {
+            console.log("Evenement existe") ; 
+            resOperation.evenementExiste = true ; 
+            resolve(resOperation) ; 
 
-        //ouverture de la connexion
-        let db = new sqlite3.Database('database/databaseProject.db', err => {
-            if (err) {
-                reject(err);
-                db.close();  
-            }
-            console.log('ouverture BDD ajouterEvenement');
-        });
+        } else {
+            console.log("Evenement existe pas") ;
+            resOperation.evenementExiste = false ;
+            //Insertion de l'evenement
+            let sql = 'INSERT INTO Evenement VALUES(?, ?, ?, ? , ?, ?, ?, ?)' ; 
 
-        db.run(sql, [evenement.acronyme, evenement.nom, evenement.adresse,evenement.description, evenement.dateOuverture, evenement.dateFermeture,evenement.dateEvenement, evenement.nbMaxParticipants], function(err) {
-            console.log("Run");
-            if (err) {
-                reject(err);
-            }
-            else {
-                db.close() ; 
-                resolve(evenement) ; 
-            }
-        });
+            //ouverture de la connexion
+            let db = new sqlite3.Database('database/databaseProject.db', err => {
+                if (err) {
+                    reject(err);
+                    db.close();  
+                }
+                console.log('ouverture BDD ajouterEvenement');
+            });
+
+            db.run(sql, [evenement.acronyme, evenement.nom, evenement.adresse,evenement.description, evenement.dateOuverture, evenement.dateFermeture,evenement.dateEvenement, evenement.nbMaxParticipants], function(err) {
+                console.log("Run");
+                if (err) {
+                    reject(err);
+                }
+                else {
+                    resOperation.insertionE = true ; 
+                    db.close() ; 
+                    resolve(resOperation) ; 
+                }
+            });
+        }    
     });
 
     return custProm ; 
@@ -306,6 +318,42 @@ function getNbEvenements() {
 
     return custProm;
 }
+
+function evenementExiste(pacronyme) {
+    const custProm = new Promise((resolve, reject) => {
+        //requete pour verifier l'existence du participant
+        let sql = 'SELECT COUNT(*) as c FROM Evenement WHERE acronyme = ?' ; 
+
+        //ouverture de la connexion
+        let db = new sqlite3.Database('database/databaseProject.db', err => {
+            if (err) {
+                reject(err);
+                db.close();  
+            }
+            console.log('ouverture BDD evenementExiste');
+        });
+
+        db.get(sql, [pacronyme], (err,row) => {
+            if(err) {
+                reject(err);
+                db.close() ; 
+            }
+            else {
+                let res; 
+                if(row.c == 1 ) {
+                    res = true ; 
+                    db.close() ;
+                } 
+                else {
+                    res = false ; 
+                    db.close() ;
+                }
+                resolve(res) ;      
+            }
+        });
+    }); 
+    return custProm ; 
+};
 
 
         

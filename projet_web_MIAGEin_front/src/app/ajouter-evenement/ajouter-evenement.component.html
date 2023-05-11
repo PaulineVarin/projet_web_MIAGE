@@ -1,5 +1,5 @@
 <h1> Ajouter un évènement </h1>
-<form ngNativeValidate>
+<form (ngSubmit)="rajoutEvenement()" ngNativeValidate >
     <div class="cadre">
         <label class="champs" for="acronyme">Acronyme :</label>
         <input type="text" id="acronyme" placeholder="Acronyme" [(ngModel)]="evenementModel.acronyme" [ngModelOptions]="{standalone: true}"required/>
@@ -26,9 +26,16 @@
         <input type="number" id="nbMaxP" placeholder="Nombre maximal de participants"  [(ngModel)]="evenementModel.nbMaxParticipants" [ngModelOptions]="{standalone: true}" required min="0"/>
     </div>
 
-    <button class="boutonAnnuler" type="submit" routerLink="/afficherStatistiques">Annuler</button>
+    <button class="boutonAnnuler" type="submit" routerLink="/afficherStatistiques">{{envoiFomulaire==true ? 'Retour':'Annuler'}}</button>
     <button class="boutonConfirmer" type="submit">Confirmer</button>
    
 </form>
+<div *ngIf="envoiFomulaire && !erreurFormulaire">
+    <p class="bg-info" text-white> {{resPost.evenementExiste == true ? 'Evenement déjà existant, pas de création':"Creation effectué"}}</p>
+</div>
 
-<pre>{{evenementModel | json}}</pre>
+
+<div *ngIf="envoiFomulaire && erreurFormulaire">
+    <p class="bg-info" text-white>Erreur lors de la prise en compte de la création de l'évènement, merci de contacter votre administrateur</p>
+</div>
+

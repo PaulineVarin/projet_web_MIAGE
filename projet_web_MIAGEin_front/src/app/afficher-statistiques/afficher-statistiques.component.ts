@@ -18,7 +18,7 @@ export class AfficherStatistiquesComponent implements OnInit {
 
   ngOnInit(): void {
     this.apiProjetWeb.recupererListeEvenements().subscribe({
-      next: data => this.listEvenements = data 
+      next: data => this.listEvenements = data
     }) ; 
 
     this.apiProjetWeb.recupererNbEvenements().subscribe({

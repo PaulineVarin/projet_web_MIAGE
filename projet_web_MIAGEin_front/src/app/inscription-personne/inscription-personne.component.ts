@@ -9,6 +9,7 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './inscription-personne.component.html',
   styleUrls: ['./inscription-personne.component.css']
 })
+
 export class InscriptionPersonneComponent implements OnInit {
   //mise en place des elements pour la page
   acronymeEvent:String = "" ; 
@@ -29,6 +30,7 @@ export class InscriptionPersonneComponent implements OnInit {
   rajoutParticipant() {
       console.log("Debut rajoutParticpant"); 
       this.envoiFomulaire = true ; 
+      this.erreurFormulaire = false ;
       //Récupération d'un Observable auquel on se souscrit, on récupère le JSON si valide, sinon on gère l'erreur
       this.apiProjetWeb.ajouterParticipant(this.acronymeEvent, this.participantModel).subscribe(
         (data) => {
