@@ -1,24 +1,41 @@
 <h1> Inscription à l'évènement {{acronymeEvent}}</h1>
 
+
 <form (ngSubmit)="rajoutParticipant()" ngNativeValidate>
-    <div class="cadre">
-
-        <label class="champs" for="nomP">Nom du participant :</label>
-        <input type="text" id="nomP" [(ngModel)]="participantModel.nom" [ngModelOptions]="{standalone: true}" required/>
-
-        <label class="champs" for="prenomP">Prénom du participant :</label>
-        <input type="text" id="prenomP" [(ngModel)]="participantModel.prenom" [ngModelOptions]="{standalone: true}" required/>
-
-        <label class="champs" for="email">Email : </label>
-        <input type="email" id="email" [(ngModel)]="participantModel.mail" [ngModelOptions]="{standalone: true}" required/>
-
-        <label class="champs" for="numT">Numéro de téléphone : </label>
-        <input type="text" id="dateE" [(ngModel)]="participantModel.numeroTelephone" [ngModelOptions]="{standalone: true}" required/>
+    <div class="container">
+    <div class="row cadre">
+        <div class="col-6 mt-3">
+            <div class="input-group row ">
+                <label  for="nomP">Nom du participant :</label>
+                <input class="form-control" type="text" id="nomP" placeholder="Durand" [(ngModel)]="participantModel.nom" [ngModelOptions]="{standalone: true}" required/>
+            </div>
+        </div>
+        <div class="col-6 mt-3">
+            <div class="input-group row">
+                <label for="prenomP">Prénom du participant :</label>
+                <input class="form-control" type="text" id="prenomP" placeholder="Jean" [(ngModel)]="participantModel.prenom" [ngModelOptions]="{standalone: true}" required/>
+            </div>
+        </div>
+            
+        <div class="col-6 mt-3">
+            <div class="input-group row">
+                <label for="email">Email : </label>
+                <input class="form-control" type="email" placeholder="jeandurand@example.fr" id="email" [(ngModel)]="participantModel.mail" [ngModelOptions]="{standalone: true}" required/>
+            </div>
+        </div>  
+        <div class="col-6 mt-3">
+            <div class="input-group row">
+                <label for="numT">Numéro de téléphone : </label>
+                <input class="form-control" type="text" placeholder="xx.xx.xx.xx.xx" id="dateE" [(ngModel)]="participantModel.numeroTelephone" [ngModelOptions]="{standalone: true}" required/>
+            </div>
+        </div>    
+            
     </div>
-    
+</div>   
     <button class="boutonAnnuler" type="submit" routerLink="/listerEvenement">Annuler</button>
-    <button class="boutonConfirmer" type="submit">Confirmer</button>
+    <button class="boutonConfirmer" type="submit"><span>Confirmer</span></button>
 </form>
+
 
 <div *ngIf="envoiFomulaire && !erreurFormulaire">
     <p class="bg-info" text-white> {{resPost.existeParticipant == true ? 'Participant déjà existant, pas de création de compte':"Creation du compte effectué"}}</p>
@@ -28,9 +45,5 @@
 <div *ngIf="envoiFomulaire && erreurFormulaire">
     <p class="bg-info" text-white>Erreur lors de la prise en compte de l'inscription, merci de contacter votre administrateur</p>
 </div>
-
-
-
-
 
 
