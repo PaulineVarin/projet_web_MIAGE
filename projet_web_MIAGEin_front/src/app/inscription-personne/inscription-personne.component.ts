@@ -15,7 +15,7 @@ export class InscriptionPersonneComponent implements OnInit {
   acronymeEvent: String = "";
   participantModel: Participant = new Participant();
 
-  resPost = { "existeParticipant": true, "liaison": true };
+  resPost = { "existeParticipant": true, "placesRestantes":true,"liaison": true };
   envoiFomulaire = false;
   erreurFormulaire = false;
 
@@ -34,9 +34,11 @@ export class InscriptionPersonneComponent implements OnInit {
     //Récupération d'un Observable auquel on se souscrit, on récupère le JSON si valide, sinon on gère l'erreur
     this.apiProjetWeb.ajouterParticipant(this.acronymeEvent, this.participantModel).subscribe(
       (data) => {
+        console.log(data) ; 
         let listValues = Object.values(data);
         this.resPost.existeParticipant = listValues[0];
-        this.resPost.liaison = listValues[1];
+        this.resPost.placesRestantes = listValues[1] ; 
+        this.resPost.liaison = listValues[2];
       },
       (err) => this.handleError()
     );

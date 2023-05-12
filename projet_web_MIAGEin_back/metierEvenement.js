@@ -28,6 +28,36 @@ function compare(a, b) {
     return 0;
 }
 
+//Recuperation d'un evenement en fonction de son acronyme
+function getEvenement(pacronyme) {
+    const custProm = new Promise((resolve, reject) => {
+        //recuperation de l'information
+        let sql = 'SELECT * FROM evenement WHERE acronyme = ?';
+
+        //ouverture de la connexion
+        let db = new sqlite3.Database('database/databaseProject.db', err => {
+            if (err) {
+                reject(err);
+            }
+            console.log('ouverture BDD');
+        });
+
+        db.get(sql, [pacronyme], async (err, row) =>{
+            if (err) {
+                db.close();
+                reject(err);
+            }
+            
+            let nbParticipants = await getNbParticipants(pacronyme);
+            let evt = new Evenement(row.acronyme, row.nom, row.adresse, row.description, row.dateOuverture, row.dateFermeture, row.dateEvenement, nbParticipants, row.nbMaxParticipants);
+            db.close();
+            resolve(evt)
+        });
+    });
+    return custProm ; 
+
+}
+
 //Recuperation de tout les evenements
 function getEvenements() {
     //Mise en place de la promise
@@ -58,7 +88,7 @@ function getEvenements() {
                 //Pour chaque ligne récupérer le nombre de participants
                 rows.forEach(async (row, index, array) => {
                     //Recuperation du nombre de participants
-                    let nbParticipants = await getNbPartipants(row.acronyme);
+                    let nbParticipants = await getNbParticipants(row.acronyme);
                     compt = compt + 1;
                     //Creation nouvel evenement
                     evt = new Evenement(row.acronyme, row.nom, row.adresse, row.description, row.dateOuverture, row.dateFermeture, row.dateEvenement, nbParticipants, row.nbMaxParticipants);
@@ -106,7 +136,7 @@ function getEvenementsCourants() {
                 //Pour chaque ligne récupérer le nombre de participants
                 rows.forEach(async (row, index, array) => {
                     //Recuperation du nombre de participants
-                    let nbParticipants = await getNbPartipants(row.acronyme);
+                    let nbParticipants = await getNbParticipants(row.acronyme);
                     compt = compt + 1;
                     //Creation nouvel evenement
                     evt = new Evenement(row.acronyme, row.nom, row.adresse, row.description, row.dateOuverture, row.dateFermeture, row.dateEvenement, nbParticipants, row.nbMaxParticipants);
@@ -149,7 +179,7 @@ function getInformationsEvenement(acronymeEvenement) {
             else {
                 let evt;
                 //Recuperation du nombre de participants
-                let nbParticipants = await getNbPartipants(acronymeEvenement);
+                let nbParticipants = await getNbParticipants(acronymeEvenement);
                 //Creation nouvel evenement
                 evt = new Evenement(row.acronyme, row.nom, row.adresse, row.description, row.dateOuverture, row.dateFermeture, row.dateEvenement, nbParticipants, row.nbMaxParticipants);
                 //Recuperer les informations sur l'ensemble des participants (liste contenant tout les participants) => en attente de la partie de Morgan
@@ -333,7 +363,7 @@ function getNbEvenementsParticipant(pmail) {
 
 
 //Recuperation du nombre de participants
-function getNbPartipants(acronymeEvent) {
+function getNbParticipants(acronymeEvent) {
     const custProm = new Promise((resolve, reject) => {
         //recuperation de l'information
         let sql = 'SELECT COUNT(*) as res FROM Participe where acronymeEvenement = ?';
@@ -435,7 +465,7 @@ function evenementExiste(pacronyme) {
 };
 
 
-
+exports.getEvenement = getEvenement ; 
 exports.getEvenements = getEvenements;
 exports.getEvenementsCourants = getEvenementsCourants;
 exports.getInformationsEvenement = getInformationsEvenement;

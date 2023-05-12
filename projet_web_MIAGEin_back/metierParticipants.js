@@ -68,7 +68,7 @@ async function ajouterParticipant(pacronyme, pparticipant) {
     let resExisteP = await participantExiste(pparticipant.mail);
 
     //JSON qui contient le deroulement de l'execution de la methode
-    let resOperation = {};
+    let resOperation = { "existeParticipant": false, "placesRestantes":true,"liaison": true };
 
     const custProm = new Promise(async (resolve, reject) => {
         //Ouverture de la connexion
@@ -82,7 +82,6 @@ async function ajouterParticipant(pacronyme, pparticipant) {
 
         if (resExisteP) {
             resOperation.existeParticipant = true;
-            console.log('Participant existe');
             //verification que le participant n'est pas déjà présent dans l'evenement
             let resLiaison = await liaisonParticipantEvenementExiste(pacronyme, pparticipant.mail);
             if (resLiaison) {
@@ -90,15 +89,24 @@ async function ajouterParticipant(pacronyme, pparticipant) {
                 resolve(resOperation);
             }
             else {
-                let resLiaison = await lierParticipant(pacronyme, pparticipant.mail);
-                resOperation.liaison = resLiaison;
-                db.close();
-                resolve(resOperation);
+                //Verification qu'il reste de la place dans l'evenement
+                let evt = await metierEvenement.getEvenement(pacronyme) ; 
+                console.log(evt) ;
+                if(evt.nbParticipants == evt.nbMaxParticipants) {
+                    resOperation.placesRestantes = false ; 
+                    resolve(resOperation);
+                }
+                else {
+                    resOperation.placesRestantes = true ;
+                    let resLiaison = await lierParticipant(pacronyme, pparticipant.mail);
+                    resOperation.liaison = resLiaison;
+                    db.close();
+                    resolve(resOperation);
+                }
             }
 
         } else {
             resOperation.existeParticipant = false;
-            console.log('Participant existe pas');
 
             //creation du participant et liaison a l'evenement
             let sql = 'INSERT INTO Participant VALUES(?, ? , ? , ?)';
@@ -109,10 +117,20 @@ async function ajouterParticipant(pacronyme, pparticipant) {
                     reject(err);
                 }
                 else {
-                    let resLiaison = await lierParticipant(pacronyme, pparticipant.mail);
-                    resOperation.liaison = resLiaison;
-                    db.close();
-                    resolve(resOperation);
+                    //Verification qu'il reste de la place dans l'evenement
+                    let evt = await metierEvenement.getEvenement(pacronyme) ; 
+                    console.log(evt) ;
+                    
+                    if(evt.nbParticipants == evt.nbMaxParticipants) {
+                        resOperation.placesRestantes = false ; 
+                        resolve(resOperation);
+                    } else {
+                        resOperation.placesRestantes = true ; 
+                        let resLiaison = await lierParticipant(pacronyme, pparticipant.mail);
+                        resOperation.liaison = resLiaison;
+                        db.close();
+                        resolve(resOperation);
+                    }
                 }
             });
         }
@@ -319,7 +337,8 @@ function moyenneParticipants() {
                     compt = compt + 1;
                     if (compt == array.length) {
                         let nbE = await metierEvenement.getNbEvenements();
-                        resMoyenne = sommeParticipants / nbE ; 
+                        resMoyenne = sommeParticipants / nbE ;
+                        resMoyenne.toFixed(2) ;
                         resolve(resMoyenne);
                     }
                 });
