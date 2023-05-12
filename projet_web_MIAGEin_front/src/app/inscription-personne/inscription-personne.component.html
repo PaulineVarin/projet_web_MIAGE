@@ -3,46 +3,52 @@
 
 <form (ngSubmit)="rajoutParticipant()" ngNativeValidate>
     <div class="container">
-    <div class="row cadre">
-        <div class="col-6 mt-3">
-            <div class="input-group row ">
-                <label  for="nomP">Nom du participant :</label>
-                <input class="form-control" type="text" id="nomP" placeholder="Durand" [(ngModel)]="participantModel.nom" [ngModelOptions]="{standalone: true}" required/>
+        <div class="row cadre">
+            <div class="col-6 mt-3">
+                <div class="input-group row ">
+                    <label for="nomP">Nom du participant :</label>
+                    <input class="form-control" type="text" id="nomP" placeholder="Durand" [(ngModel)]="participantModel.nom" [ngModelOptions]="{standalone: true}" required />
+                </div>
+            </div>
+            <div class="col-6 mt-3">
+                <div class="input-group row">
+                    <label for="prenomP">Prénom du participant :</label>
+                    <input class="form-control" type="text" id="prenomP" placeholder="Jean" [(ngModel)]="participantModel.prenom" [ngModelOptions]="{standalone: true}" required />
+                </div>
+            </div>
+
+            <div class="col-6 mt-3">
+                <div class="input-group row">
+                    <label for="email">Email : </label>
+                    <input class="form-control" type="email" placeholder="jeandurand@example.fr" id="email" [(ngModel)]="participantModel.mail" [ngModelOptions]="{standalone: true}" required />
+                </div>
+            </div>
+            <div class="col-6 mt-3">
+                <div class="input-group row">
+                    <label for="numT">Numéro de téléphone : </label>
+                    <input class="form-control" type="text" placeholder="xx.xx.xx.xx.xx" id="dateE"
+                        [(ngModel)]="participantModel.numeroTelephone" [ngModelOptions]="{standalone: true}" required />
+                </div>
             </div>
         </div>
-        <div class="col-6 mt-3">
-            <div class="input-group row">
-                <label for="prenomP">Prénom du participant :</label>
-                <input class="form-control" type="text" id="prenomP" placeholder="Jean" [(ngModel)]="participantModel.prenom" [ngModelOptions]="{standalone: true}" required/>
-            </div>
-        </div>
-            
-        <div class="col-6 mt-3">
-            <div class="input-group row">
-                <label for="email">Email : </label>
-                <input class="form-control" type="email" placeholder="jeandurand@example.fr" id="email" [(ngModel)]="participantModel.mail" [ngModelOptions]="{standalone: true}" required/>
-            </div>
-        </div>  
-        <div class="col-6 mt-3">
-            <div class="input-group row">
-                <label for="numT">Numéro de téléphone : </label>
-                <input class="form-control" type="text" placeholder="xx.xx.xx.xx.xx" id="dateE" [(ngModel)]="participantModel.numeroTelephone" [ngModelOptions]="{standalone: true}" required/>
-            </div>
-        </div>    
-    </div>  
     </div>
-    <button class="boutonAnnuler" type="submit" routerLink="/listerEvenement">{{envoiFomulaire==true ? 'Retour':'Annuler'}}</button>
+    <button class="boutonAnnuler" type="submit" routerLink="/listerEvenement">{{envoiFomulaire==true ?'Retour':'Annuler'}}</button>
     <button class="boutonConfirmer" type="submit">Confirmer</button>
 </form>
 
 
 <div *ngIf="envoiFomulaire && !erreurFormulaire">
     <p class="bg-info" text-white> {{resPost.existeParticipant == true ? 'Participant déjà existant, pas de création de compte':"Creation du compte effectué"}}</p>
-    <p class="bg-info" text-white>{{resPost.liaison == false ? 'Participation déjà enregistré. Pas de nouvelle inscription':"Inscription à l'évènement confirmée"}}</p>
+
+    <p class="bg-info" text-white *ngIf="resPost.placesRestantes==true; else elseBlock">{{resPost.liaison == false ? 'Participation déjà enregistré. Pas de nouvelle inscription':"Inscription à l'évènement confirmée"}}</p>
+    
+    <ng-template #elseBlock>
+        <p class="bg-info" text-white>{{resPost.placesRestantes == false ? "Aucune place de libre dans l'évènement. Pas de nouvelle inscription":""}}</p>
+    </ng-template>
 </div>
+
+
 
 <div *ngIf="envoiFomulaire && erreurFormulaire">
     <p class="bg-info" text-white>Erreur lors de la prise en compte de l'inscription, merci de contacter votre administrateur</p>
 </div>
-
-

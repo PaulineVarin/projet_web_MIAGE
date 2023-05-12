@@ -13,6 +13,7 @@ import { ApiProjetWebService } from './api-projet-web.service';
 import { HttpClientModule } from '@angular/common/http';
 import {RouterModule, Routes} from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { DetailsParticipantComponent } from './details-participant/details-participant.component';
 
 const appRoutes: Routes = [
   { path: 'listerEvenement', component: ListerEvenementsComponent},
@@ -22,6 +23,7 @@ const appRoutes: Routes = [
   { path: 'detailsEvenement', component: DetailsEvenementComponent},
   { path: 'inscriptionPersonne/:acronyme', component: InscriptionPersonneComponent},
   { path: 'listerParticipants', component: ListerParticipantsComponent},
+  { path: 'detailsParticipants/:mail', component : DetailsParticipantComponent},
   { path: '', redirectTo: 'listerEvenement', pathMatch: 'full'}
 ]
 
@@ -34,7 +36,8 @@ const appRoutes: Routes = [
     ConsulterEvenementComponent,
     DetailsEvenementComponent,
     ListerParticipantsComponent,
-    AjouterEvenementComponent
+    AjouterEvenementComponent,
+    DetailsParticipantComponent
   ],
   imports: [
     BrowserModule,

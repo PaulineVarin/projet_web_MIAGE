@@ -1,12 +1,13 @@
-<h1>Liste<br/>Participants</h1>
+<h1>Liste<br />Participants</h1>
 <div class="divTableScroll">
     <table>
         <thead>
-            <tr class="champs" *ngFor="let p of this.listParticipants; index as i">
+            <tr class="champs">
                 <td class="nom">Nom</td>
                 <td class="prenom">Prenom</td>
                 <td class="mail">Mail</td>
                 <td class="tel">Téléphone</td>
+                <td class="tel"></td>
             </tr>
         </thead>
         <tbody>
@@ -16,6 +17,7 @@
                 <td class="prenom">{{p.prenom}}</td>
                 <td class="mail">{{p.mail}}</td>
                 <td class="tel">{{p.numeroTelephone}}</td>
+                <td><button type="button" class="btn btn-outline-secondary" routerLink="/detailsParticipants/{{p.mail}}">Consulter</button></td>
             </tr>
         </tbody>
     </table>

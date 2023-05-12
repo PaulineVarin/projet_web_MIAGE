@@ -9,18 +9,17 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./lister-participants.component.css']
 })
 export class ListerParticipantsComponent implements OnInit {
-  listParticipants:Participant[] = [];
+  listParticipants: Participant[] = [];
 
-  constructor(private apiProjetWeb:ApiProjetWebService,
-              private routeActive: ActivatedRoute) {}
+  constructor(private apiProjetWeb: ApiProjetWebService,
+    private routeActive: ActivatedRoute) { }
 
   ngOnInit(): void {
-    let acronyme = this.routeActive.snapshot.params['acronyme'] ; 
-    console.log(acronyme) ; 
+    let acronyme = this.routeActive.snapshot.params['acronyme'];
     this.apiProjetWeb.listerParticipants(acronyme).subscribe({
-      next: data => this.listParticipants = data 
-    }) 
-    
+      next: data => this.listParticipants = data
+    });
+
   }
 
 }

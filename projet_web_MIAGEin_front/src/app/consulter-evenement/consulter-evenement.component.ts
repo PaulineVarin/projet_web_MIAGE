@@ -7,28 +7,31 @@ import { ApiProjetWebService } from '../api-projet-web.service';
   templateUrl: './consulter-evenement.component.html',
   styleUrls: ['./consulter-evenement.component.css']
 })
-export class ConsulterEvenementComponent implements OnInit{
-  acronymeEvent:String = "" ;
+export class ConsulterEvenementComponent implements OnInit {
+  acronymeEvent: String = "";
+  erreurSuppression = false;
+  envoiDemande = false;
 
-  constructor(private apiProjetWeb:ApiProjetWebService,
-              private routeActive: ActivatedRoute) {}
+  constructor(private apiProjetWeb: ApiProjetWebService,
+    private routeActive: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.acronymeEvent = this.routeActive.snapshot.params['acronyme'] ; 
+    this.acronymeEvent = this.routeActive.snapshot.params['acronyme'];
   }
 
   supprimerEvenement() {
     console.log("Hello sup");
     this.apiProjetWeb.supprimerEvenement(this.acronymeEvent).subscribe(
-    (data) => {
-              },
-        (err) => this.handleError()
-      );
+      (data) => {
+        this.envoiDemande = true;
+      },
+      (err) => this.handleError()
+    );
 
   }
 
-  handleError(){
-    console.log("Erreur lors de la suppression")
+  handleError() {
+    this.erreurSuppression = true;
   }
 
 }
