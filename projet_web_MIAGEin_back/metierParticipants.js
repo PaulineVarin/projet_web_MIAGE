@@ -1,5 +1,6 @@
 // Partie Metier
 var sqlite3 = require('sqlite3');
+var metierEvenement = require('./metierEvenement');
 
 // Constructeur model participant
 function Participant(pnom, pprenom, pmail, ptel) {
@@ -34,37 +35,25 @@ function getParticipants(acronymeEvent) {
                 reject(err);
             }
             else {
+                //La variable compt sert à s'assurer que si la dernière boucle termine avant la première, le nombre de lignes attendues est bien récupéré
+                let compt = 0;
                 let listParticipants = [];
-                //Attendre la réponse pour toutes les lignes existantes
-                const custPromListe = new Promise((resolve, reject) => {
-
-                    if (rows.length != 0) {
-                        console.log('Il existe des participants')
-                        //Pour chaque ligne récupérer l'ensemble des participants
-                        rows.forEach(async (row, index, array) => {
-                            //Creation de l'objet participant
-                            part = new Participant(row.nom, row.prenom, row.mail, row.numeroTelephone);
-                            listParticipants.push(part);
-                            //Une fois arrivé à la fin de la liste, renvoyer une réponse avec l'ensemble des participants
-                            if (index === array.length - 1) {
-                                resolve(listParticipants);
-                            }
-                        });
-                    }
-                    else {
-                        console.log('Pas de participants');
+                //Pour chaque ligne récupérer l'ensemble des participants
+                rows.forEach(async (row, index, array) => {
+                    //Creation de l'objet participant
+                    part = new Participant(row.nom, row.prenom, row.mail, row.numeroTelephone);
+                    listParticipants.push(part);
+                    compt = compt + 1;
+                    //Une fois arrivé à la fin de la liste, renvoyer une réponse avec l'ensemble des participants
+                    if (compt == array.length){
                         resolve(listParticipants);
                     }
-
                 });
 
-                //Si on a recuperer tout les participants , renvoyer la réponse (liste) récupérée
-                custPromListe.then(function () {
-                    console.log('FIN');
-                    db.close();
-                    resolve(custPromListe);
-                });
-
+                if(rows.length ==  0) {
+                    let listParticipantsVide = [] ; 
+                    resolve(listParticipantsVide) ; 
+                }
             }
         });
     });
@@ -266,7 +255,50 @@ function supprimerParticipants(acronymeEvenement) {
     return custProm;
 }
 
+
+//Calcul de la moyenne des participants par evenements
+function moyenneParticipants() {
+    console.log("Moyennnnnne");
+    const custProm = new Promise((resolve, reject) => {
+        let sql = 'select count(*) as res FROM Participe GROUP BY acronymeEvenement';
+        let resMoyenne = 0 ;
+
+        //ouverture de la connexion
+        let db = new sqlite3.Database('database/databaseProject.db', err => {
+            if (err) {
+                reject(err);
+                db.close();
+            }
+            console.log('ouverture BDD suppression P');
+        });
+
+        db.all(sql, (err, rows) => {
+            if (err) {
+                db.close();
+                reject(err);
+            }
+            else {
+                let sommeParticipants = 0 ;
+                //La variable compt sert à s'assurer que si la dernière boucle termine avant la première, le nombre de lignes attendues est bien récupéré
+                let compt = 0;
+                //Faire la somme des participants par evenements
+                rows.forEach(async (row, index, array) => {
+                    sommeParticipants = sommeParticipants + row.res ; 
+                    compt = compt + 1;
+                    if (compt == array.length) {
+                        let nbE = await metierEvenement.getNbEvenements();
+                        resMoyenne = sommeParticipants / nbE ; 
+                        resolve(resMoyenne);
+                    }
+                });
+            }
+        });
+    });
+    return custProm;
+}
+
 // exportation des méthodes
 exports.getParticipants = getParticipants;
 exports.ajouterParticipant = ajouterParticipant;
 exports.supprimerParticipants = supprimerParticipants;
+exports.moyenneParticipants = moyenneParticipants ; 

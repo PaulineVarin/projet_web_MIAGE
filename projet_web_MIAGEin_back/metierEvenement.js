@@ -17,6 +17,16 @@ function Evenement(pacronyme, pnom, padresse, pdescription, pdateOuverture, pdat
 }
 
 //Methodes metier
+//Fonction compare pour trier les résultats de la récupération des événements
+function compare(a,b) {
+    if (a.dateFermeture < b.dateFermeture) {
+        return -1;
+    }
+    if (a.dateFermeture > b.dateFermeture) {
+        return 1;
+    }
+    return 0;
+}
 
 //Recuperation de tout les evenements
 function getEvenements() {
@@ -24,7 +34,7 @@ function getEvenements() {
     const custProm = new Promise((resolve, reject) => {
 
         //recuperation de l'information
-        let sql = 'SELECT * FROM evenement';
+        let sql = 'SELECT * FROM evenement;';
 
         //ouverture de la connexion
         let db = new sqlite3.Database('database/databaseProject.db', err => {
@@ -41,30 +51,24 @@ function getEvenements() {
                 reject(err);
             }
             else {
+                //La variable compt sert à s'assurer que si la dernière boucle termine avant la première, le nombre de lignes attendues est bien récupéré
+                let compt = 0;
                 let listEvenements = [];
                 //Attendre la réponse pour toutes les lignes existantes
-                const custPromListe = new Promise((resolve, reject) => {
-                    //Pour chaque ligne récupérer le nombre de participants
-                    rows.forEach(async (row, index, array) => {
-                        //Recuperation du nombre de participants
-                        let nbParticipants = await getNbPartipants(row.acronyme);
-                        //Creation nouvel evenement
-                        evt = new Evenement(row.acronyme, row.nom, row.adresse, row.description, row.dateOuverture, row.dateFermeture, row.dateEvenement, nbParticipants, row.nbMaxParticipants);
-                        listEvenements.push(evt);
-                        //Une fois arrivé à la fin de la liste, renvoyer une réponse avec les participants pour chaque evenement
-                        if (index === array.length - 1) {
-                            resolve(listEvenements);
-                        }
-                    });
+                //Pour chaque ligne récupérer le nombre de participants
+                rows.forEach(async (row, index, array) => {
+                    //Recuperation du nombre de participants
+                    let nbParticipants = await getNbPartipants(row.acronyme);
+                    compt = compt + 1;
+                    //Creation nouvel evenement
+                    evt = new Evenement(row.acronyme, row.nom, row.adresse, row.description, row.dateOuverture, row.dateFermeture, row.dateEvenement, nbParticipants, row.nbMaxParticipants);
+                    listEvenements.push(evt);
+                    //Une fois arrivé à la fin de la liste, renvoyer une réponse avec les participants pour chaque evenement
+                    if (compt == array.length) {
+                        listEvenements.sort(compare);
+                        resolve(listEvenements);
+                    }
                 });
-
-                //Lorsque la réponse des participants pour chaque ligne est donnée, renvoyer la réponse (liste) récupérée
-                custPromListe.then(function () {
-                    console.log("FIN");
-                    db.close();
-                    resolve(custPromListe);
-                });
-
             }
         });
 
@@ -95,28 +99,23 @@ function getEvenementsCourants() {
                 reject(err);
             }
             else {
+                //La variable compt sert à s'assurer que si la dernière boucle termine avant la première, le nombre de lignes attendues est bien récupéré
+                let compt = 0;
                 let listEvenements = [];
                 //Attendre la réponse pour toutes les lignes existantes
-                const custPromListe = new Promise((resolve, reject) => {
-                    //Pour chaque ligne récupérer le nombre de participants
-                    rows.forEach(async (row, index, array) => {
-                        //Recuperation du nombre de participants
-                        let nbParticipants = await getNbPartipants(row.acronyme);
-                        //Creation nouvel evenement
-                        evt = new Evenement(row.acronyme, row.nom, row.adresse, row.description, row.dateOuverture, row.dateFermeture, row.dateEvenement, nbParticipants, row.nbMaxParticipants);
-                        listEvenements.push(evt);
-                        //Une fois arrivé à la fin de la liste, renvoyer une réponse avec les participants pour chaque evenement
-                        if (index === array.length - 1) {
-                            resolve(listEvenements);
-                        }
-                    });
-                })
-
-                //Lorsque la réponse des participants pour chaque ligne est donnée, renvoyer la réponse (liste) récupérée
-                custPromListe.then(function () {
-                    console.log("FIN");
-                    db.close();
-                    resolve(custPromListe);
+                //Pour chaque ligne récupérer le nombre de participants
+                rows.forEach(async (row, index, array) => {
+                    //Recuperation du nombre de participants
+                    let nbParticipants = await getNbPartipants(row.acronyme);
+                    compt = compt + 1;
+                    //Creation nouvel evenement
+                    evt = new Evenement(row.acronyme, row.nom, row.adresse, row.description, row.dateOuverture, row.dateFermeture, row.dateEvenement, nbParticipants, row.nbMaxParticipants);
+                    listEvenements.push(evt);
+                    //Une fois arrivé à la fin de la liste, renvoyer une réponse avec les participants pour chaque evenement
+                    if (compt == array.length) {
+                        listEvenements.sort(compare);
+                        resolve(listEvenements);
+                    }
                 });
             }
         });

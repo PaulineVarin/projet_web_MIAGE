@@ -103,6 +103,9 @@ app.post('/personne/ajouter', async function (req, res) {
 });
 
 //Calculer la moyenne des participants par evenements
+app.get('/participants/moyenne', async function (req, res) {
+  res.status(200).json(await metierParticipant.moyenneParticipants());
+});
 
 
 

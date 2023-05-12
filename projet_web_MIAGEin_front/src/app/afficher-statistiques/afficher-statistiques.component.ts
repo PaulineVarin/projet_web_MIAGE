@@ -24,6 +24,10 @@ export class AfficherStatistiquesComponent implements OnInit {
     this.apiProjetWeb.recupererNbEvenements().subscribe({
       next: data => this.nbEvenements = data
     });
+
+    this.apiProjetWeb.calculMoyenneParticipants().subscribe({
+      next:data => this.nbParticipantsMoyens = data
+    }); 
   }
 
 }

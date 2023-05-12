@@ -66,6 +66,9 @@ export class ApiProjetWebService {
     console.log("HELLO lister personnes service") ;
     //retourne la liste des participants pour un evenement
     return this.httpClient.get<Participant[]>(this.url + '/personne/'+acronymeE+'/lister') ;
+  }
 
+  public calculMoyenneParticipants():Observable<number> {
+    return this.httpClient.get<number>(this.url+'/participants/moyenne'); 
   }
 }
