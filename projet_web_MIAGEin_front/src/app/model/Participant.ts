@@ -3,6 +3,7 @@ export class Participant {
     prenom: string;
     mail: string;
     numeroTelephone: string;
+    nbInscriptions: number ; 
 
     constructor() {
         {
@@ -10,6 +11,7 @@ export class Participant {
             this.prenom = "";
             this.mail = "";
             this.numeroTelephone = "";
+            this.nbInscriptions= 0;
         }
     }
 }

@@ -77,8 +77,21 @@ app.get('/evenement/lister/all', async function (req, res) {
   res.status(200).json(await metierEvenement.getNbEvenements());
 });
 
+//Lister les evenements d'un participant
+app.get('/evenement/lister/:mailP', async function(req, res) {
+  var mailparticipant = req.params.mailP;
+  res.status(200).json(await metierEvenement.getEvenementsParticipant(mailparticipant));
+});
+
 
 //PARTIE PARTICIPANTS---------------------------------------
+
+//Récuperer les informations d'un participant
+app.get('/personne/details/:mailP', async function(req, res) {
+  var mailparticipant = req.params.mailP;
+  res.status(200).json(await metierParticipant.getParticipant(mailparticipant));
+});
+
 
 //Lister les participants d'un évènement (GET)
 app.get('/personne/:acronymeEvenement/lister', async function (req, res) {

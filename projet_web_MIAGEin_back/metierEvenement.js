@@ -18,7 +18,7 @@ function Evenement(pacronyme, pnom, padresse, pdescription, pdateOuverture, pdat
 
 //Methodes metier
 //Fonction compare pour trier les résultats de la récupération des événements
-function compare(a,b) {
+function compare(a, b) {
     if (a.dateFermeture < b.dateFermeture) {
         return -1;
     }
@@ -244,6 +244,94 @@ async function supprimerEvenement(acronymeEvenement) {
     return custProm;
 }
 
+
+//Recupere les evenements auquel participe un participant
+function getEvenementsParticipant(pmail) {
+    //fonction deja existente pour retourner les infos d'un evenement
+    const custProm = new Promise((resolve, reject) => {
+        //Recuperation de l'information
+        let sql = 'SELECT acronymeEvenement FROM Participe WHERE mail = ?';
+
+        //ouverture de la connexion
+        let db = new sqlite3.Database('database/databaseProject.db', err => {
+            if (err) {
+                reject(err);
+                db.close();
+            }
+            console.log('ouverture BDD get Evenements Participants');
+        });
+
+
+        //traitement de toutes les lignes evenements
+        db.all(sql, [pmail] ,(err, rows) => {
+            if (err) {
+                db.close();
+                reject(err);
+            }
+            else {
+                //La variable compt sert à s'assurer que si la dernière boucle termine avant la première, le nombre de lignes attendues est bien récupéré
+                let compt = 0;
+                let listEvenements = [];
+                //Attendre la réponse pour toutes les lignes existantes
+                //Pour chaque ligne récupérer les informations sur l'evenement
+                rows.forEach(async (row, index, array) => {
+                    //Recuperation les informations sur l'evenement
+                    let evt = await getInformationsEvenement(row.acronymeEvenement);
+                    listEvenements.push(evt);
+                    compt = compt + 1;
+                    //Une fois arrivé à la fin de la liste, renvoyer une réponse avec l'ensemble des evenements
+                    if (compt == array.length) {
+                        listEvenements.sort(compare);
+                        db.close() ; 
+                        resolve(listEvenements);
+                    }
+                });
+
+                if(rows.length ==  0) {
+                    db.close() ; 
+                    let listEvenementsVide = [] ; 
+                    resolve(listEvenementsVide) ; 
+                }
+            }
+        });
+
+    });
+    return custProm ; 
+
+}
+
+
+//Calcul du nombre d'evenements pour un participant
+function getNbEvenementsParticipant(pmail) {
+    const custProm = new Promise((resolve, reject) => {
+        //Recuperation de l'information
+        let sql = 'SELECT COUNT(*) as res FROM Participe WHERE mail = ?';
+
+        //ouverture de la connexion
+        let db = new sqlite3.Database('database/databaseProject.db', err => {
+            if (err) {
+                reject(err);
+                db.close();
+            }
+            console.log('ouverture BDD getNbEvenementsParticipant');
+        });
+
+        db.get(sql, [pmail], (err, row) => {
+            if (err) {
+                reject(err);
+            }
+            else {
+                db.close();
+                resolve(row.res);
+            }
+        });
+    });
+    return custProm;
+}
+
+
+
+
 //Recuperation du nombre de participants
 function getNbPartipants(acronymeEvent) {
     const custProm = new Promise((resolve, reject) => {
@@ -264,18 +352,10 @@ function getNbPartipants(acronymeEvent) {
                 reject(err);
             }
             else {
+                db.close();
                 resolve(row.res);
             }
         });
-
-        //Fermeture de la connexion
-        db.close((err) => {
-            if (err) {
-                return err;
-            }
-            console.log('Close the database connection.');
-        });
-
     });
 
     return custProm;
@@ -359,6 +439,11 @@ function evenementExiste(pacronyme) {
 exports.getEvenements = getEvenements;
 exports.getEvenementsCourants = getEvenementsCourants;
 exports.getInformationsEvenement = getInformationsEvenement;
+
 exports.getNbEvenements = getNbEvenements;
+
 exports.ajouterEvenement = ajouterEvenement;
-exports.supprimerEvenement = supprimerEvenement; 
+exports.supprimerEvenement = supprimerEvenement;
+
+exports.getNbEvenementsParticipant = getNbEvenementsParticipant;
+exports.getEvenementsParticipant = getEvenementsParticipant;

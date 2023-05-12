@@ -3,11 +3,12 @@ var sqlite3 = require('sqlite3');
 var metierEvenement = require('./metierEvenement');
 
 // Constructeur model participant
-function Participant(pnom, pprenom, pmail, ptel) {
+function Participant(pnom, pprenom, pmail, ptel, pnbI) {
     this.nom = pnom;
     this.prenom = pprenom;
     this.mail = pmail;
     this.numeroTelephone = ptel;
+    this.nbInscriptions = pnbI ; 
 }
 
 // Méthodes métier
@@ -255,10 +256,41 @@ function supprimerParticipants(acronymeEvenement) {
     return custProm;
 }
 
+//Recupere un participant en fonction de son mail
+function getParticipant(pmail) {
+    const custProm = new Promise((resolve, reject) => {
+        let sql = 'select * from participant where mail = ?' ; 
+
+        //ouverture de la connexion
+        let db = new sqlite3.Database('database/databaseProject.db', err => {
+            if (err) {
+                reject(err);
+                db.close();
+            }
+            console.log('ouverture BDD get Participant');
+        });
+
+        db.get(sql, [pmail], async (err, row) => {
+            if (err) {
+                db.close();
+                reject(err);
+            }
+            else {
+                let nbInscriptions = await metierEvenement.getNbEvenementsParticipant(pmail) ;
+                let p = new Participant(row.nom, row.prenom, row.mail, row.numeroTelephone,nbInscriptions) ; 
+                db.close() ;  
+                resolve(p) ; 
+            }
+
+        });
+    });
+
+    return custProm ; 
+}
+
 
 //Calcul de la moyenne des participants par evenements
 function moyenneParticipants() {
-    console.log("Moyennnnnne");
     const custProm = new Promise((resolve, reject) => {
         let sql = 'select count(*) as res FROM Participe GROUP BY acronymeEvenement';
         let resMoyenne = 0 ;
@@ -299,6 +331,9 @@ function moyenneParticipants() {
 
 // exportation des méthodes
 exports.getParticipants = getParticipants;
+exports.getParticipant = getParticipant ; 
+
 exports.ajouterParticipant = ajouterParticipant;
 exports.supprimerParticipants = supprimerParticipants;
+
 exports.moyenneParticipants = moyenneParticipants ; 

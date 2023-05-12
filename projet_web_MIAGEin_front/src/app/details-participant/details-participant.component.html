@@ -1,0 +1,44 @@
+<table>
+    <thead>
+        <th colspan="2"><h1>Détails<br/>du participant {{participant.nom}}</h1></th>
+        <tr>
+            <td class="champs">Nom</td>                                             
+            <td class="champs">Prenom</td>                                          
+            <td class="champs">Mail</td>                                            
+            <td class="champs">Nombre d'inscriptions à des évènements</td>  
+        </tr> 
+    </thead>
+    <tbody>   
+         <!-- Données du participant -->  
+         <tr>
+            <td class="donnees">{{participant.nom}}</td>  
+            <td class="donnees">{{participant.prenom}}</td>
+            <td class="donnees">{{participant.mail}}</td>
+            <td class="donnees">{{participant.nbInscriptions}}</td>
+         </tr> 
+    </tbody>
+</table>
+
+
+<table>
+    <thead>
+        <th colspan="2"><h1>Détails<br/>des évènements auquels il participe</h1></th>
+        <tr>
+            <td class="champs">Acronyme</td>                                             
+            <td class="champs">Nom</td>                                          
+            <td class="champs">Date de l'évènement</td>                                            
+            <td class="champs">Nombre de participants<td>   
+            <td class="champs"></td> 
+        </tr> 
+    </thead>
+    <tbody>   
+         <!-- Données du participant -->  
+         <tr *ngFor="let evt of this.listeEvenements; index as i">
+            <td class="donnees">{{evt.acronyme}}</td>  
+            <td class="donnees">{{evt.nom}}</td>
+            <td class="donnees">{{evt.dateEvenement}}</td>
+            <td class="donnees">{{evt.nbParticipants}}</td>
+            <td><button type="button" class="btn btn-outline-secondary" routerLink="/consulterEvenement/{{evt.acronyme}}">Consulter</button></td>
+         </tr> 
+    </tbody>
+</table>

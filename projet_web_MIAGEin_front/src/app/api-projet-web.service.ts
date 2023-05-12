@@ -51,8 +51,18 @@ export class ApiProjetWebService {
     return this.httpClient.delete<JSON>(this.url+'/evenement/supprimer/'+pacronyme) ; 
   }
 
+  //Recuperation des evenements d'un participant
+  public getEvenementsParticipants(pmail:String):Observable<Evenement[]>{
+    return this.httpClient.get<Evenement[]>(this.url+'/evenement/lister/'+pmail) ; 
+  }
+
 
   //recuperation des infos de l'API pour les participants
+
+  //Recuperation des informations d'un participant
+  public getInformationsParticipant(pmail:String):Observable<Participant> {
+    return this.httpClient.get<Participant>(this.url+'/personne/details/'+pmail) ; 
+  }
 
   //Envoi et recuperation des infos de l'API pour l'ajout d'un participant a un evenement
   public ajouterEvenement(pEvenement:Evenement) {
@@ -68,6 +78,7 @@ export class ApiProjetWebService {
     return this.httpClient.get<Participant[]>(this.url + '/personne/'+acronymeE+'/lister') ;
   }
 
+  //Calculer la moyenne des participants par evenements
   public calculMoyenneParticipants():Observable<number> {
     return this.httpClient.get<number>(this.url+'/participants/moyenne'); 
   }
