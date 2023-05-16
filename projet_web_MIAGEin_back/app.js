@@ -2,6 +2,7 @@ var express = require('express');
 var bodyparser = require('body-parser');
 var metierEvenement = require('./metierEvenement') ; 
 var metierParticipant = require('./metierParticipants');
+var metierAuthenticate = require('./metierAuthentification');
 
 var app = express() ; 
 app.use(bodyparser.json());
@@ -93,6 +94,28 @@ app.post('/personne/ajouter', async function(req, res) {
   console.log("Metier") ; 
   try {
     var objRes = await metierParticipant.ajouterParticipant(acronymeE, participant) ; 
+    //Forger le résultat
+    res.status(200).json(objRes) ; 
+  }
+  catch (error) {
+    res.status(404).json("ERR") ; 
+  }
+});
+
+
+// PARTIE AUTHENTIFICATION
+
+//Valider l'authentification (POST)
+app.post('/login', async function(req, res) {
+    
+  //Récuperer les paramètres
+  var login = req.body[0];
+  var mdp = req.body[1];
+
+  //Metier
+  console.log("Metier");
+  try {
+    var objRes = await metierAuthenticate.authenticateAdmin(login, mdp); 
     //Forger le résultat
     res.status(200).json(objRes) ; 
   }
