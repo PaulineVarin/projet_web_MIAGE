@@ -21,15 +21,17 @@ export class AuthenticationUserService {
      }
 
     login(username: string, password: string) {
-        this.http.post<any>(this._loginUrl, { username, password })
-        .forEach(
+        let res = this.http.post<any>(this._loginUrl, { username, password });
+        
+        //attention si plusieurs resultats (user) seul le dernier sera connecté (NB: un seul résultat attendu)
+        res.forEach(
           user => {
             //store user details in local storage to keep user logged in between page refreshes
             localStorage.setItem('user', JSON.stringify(user));
             this.userSubject.next(user);
-            return user;
           }
         );
+        return res;
     }
 
     logout() {
