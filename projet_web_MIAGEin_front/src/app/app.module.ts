@@ -13,6 +13,7 @@ import { ApiProjetWebService } from './api-projet-web.service';
 import { HttpClientModule } from '@angular/common/http';
 import {RouterModule, Routes} from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { LoginComponent } from './login/login.component';
 
 const appRoutes: Routes = [
   { path: 'listerEvenement', component: ListerEvenementsComponent},
@@ -34,7 +35,8 @@ const appRoutes: Routes = [
     ConsulterEvenementComponent,
     DetailsEvenementComponent,
     ListerParticipantsComponent,
-    AjouterEvenementComponent
+    AjouterEvenementComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
