@@ -107,20 +107,20 @@ app.post('/personne/ajouter', async function(req, res) {
 
 //Valider l'authentification (POST)
 app.post('/login', async function(req, res) {
-    
+  
   //Récuperer les paramètres
-  var login = req.body[0];
-  var mdp = req.body[1];
+  var login = req.body.username;
+  var mdp = req.body.password;
 
   //Metier
   console.log("Metier");
   try {
-    var objRes = await metierAuthenticate.authenticateAdmin(login, mdp); 
+    var objRes = await metierAuthenticate.authenticateAdmin(login, mdp);
     //Forger le résultat
-    res.status(200).json(objRes) ; 
+    res.status(200).json(objRes) ;
   }
   catch (error) {
-    res.status(404).json("ERR") ; 
+    res.status(404).json("ERR") ;
   }
 });
 

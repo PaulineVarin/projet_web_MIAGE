@@ -20,7 +20,7 @@ function authenticateAdmin(plogin, pmdp) {
             if (err) {
                 reject(err);
             }
-            console.log('ouverture BDD');
+            console.log('ouverture BDD authenticateAdmin');
         });
 
         db.all(sql, [plogin, pmdp], (err, rows) => {
@@ -33,23 +33,17 @@ function authenticateAdmin(plogin, pmdp) {
 
                 //Attendre la réponse pour toutes les lignes existantes
                 const custPromListe = new Promise((resolve, reject) => {
-
+                    
                     if(rows.length == 1) {
-                        console.log('login ou mdp invalide')
+                        console.log('login et mdp valide')
                         //Pour chaque ligne récupérer l'ensemble des authentifiés
-                        rows.forEach( async (row, index, array) => {
-                            //Creation de l'objet participant
-                            part = new authenticateAdmin(row.login, row.mdp); 
-                            listAuthentifies.push(part) ; 
-                            //Une fois arrivé à la fin de la liste, renvoyer une réponse avec l'ensemble des authentifiés
-                            if (index === array.length - 1){
-                                resolve(listParticipants);
-                            } 
-                        });
+                        part = new Administrateur(rows[0].login, rows[0].mdp);
+                        
+                        resolve(part);
                     }
                     else {
                         console.log('login ou mdp invalide (ou trop de rows récupérées)'); 
-                        resolve(listParticipants); 
+                        resolve(listAuthentifies); 
                     }
                 });
 
