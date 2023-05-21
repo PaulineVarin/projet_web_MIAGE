@@ -3,7 +3,6 @@ import {HttpClient} from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { Evenement } from './model/Evenement';
 import { Participant } from './model/Participant';
-import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
