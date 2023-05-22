@@ -1,13 +1,29 @@
-<div class="item-composants-consulter-evenement">
-    <table class="tablediv">
-        <tr>
-            <td><div class="inner-div inner-div1"><app-details-evenement></app-details-evenement></div></td>
-            <td><div class="inner-div inner-div2"><app-lister-participants></app-lister-participants></div></td>
-        </tr>
-    </table>
+<div *ngIf="!envoiDemande">
+    <div class="item-composants-consulter-evenement">
+        <table class="tablediv">
+            <tr>
+                <td>
+                    <div class="inner-div inner-div1"><app-details-evenement></app-details-evenement></div>
+                </td>
+                <td>
+                    <div class="inner-div inner-div2"><app-lister-participants></app-lister-participants></div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="boutons">
+        <button routerLink="/afficherStatistiques">Retour</button>
+        <button class="alert" type="submit" (click)="supprimerEvenement()">Supprimer</button>
+    </div>
 </div>
 
-<div class="boutons">
-    <button routerLink="/afficherStatistiques">Annuler</button>
-    <button class="alert">Supprimer</button>
+
+
+<div *ngIf="envoiDemande && !erreurSuppression">
+    <p>Evenement supprimé, merci pour votre action</p>
+</div>
+
+<div *ngIf="erreurSuppression">
+    <p>Une erreur est survenu, merci de contacter votre administrateur</p>
 </div>

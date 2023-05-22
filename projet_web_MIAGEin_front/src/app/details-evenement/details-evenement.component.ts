@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Evenement } from '../model/Evenement';
 import { ApiProjetWebService } from '../api-projet-web.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-details-evenement',
@@ -9,17 +10,18 @@ import { ApiProjetWebService } from '../api-projet-web.service';
 })
 export class DetailsEvenementComponent implements OnInit {
   //mise en place de la recuperation des infos provenant de l'API via le service
-  evenement:Evenement = new Evenement() ; 
-  
+  evenement: Evenement = new Evenement();
 
-  constructor(private apiProjetWeb:ApiProjetWebService) {}
+
+  constructor(private apiProjetWeb: ApiProjetWebService,
+    private routeActive: ActivatedRoute) { }
 
 
   ngOnInit(): void {
-    let acronyme = 'AL3C2023' ; //A modfier une fois toutes les liaisons faites!!!
+    let acronyme = this.routeActive.snapshot.params['acronyme'];
     this.apiProjetWeb.recupererInformationsEvenement(acronyme).subscribe({
-      next: data => this.evenement = data 
-    }) ; 
+      next: data => this.evenement = data
+    });
   }
 
 

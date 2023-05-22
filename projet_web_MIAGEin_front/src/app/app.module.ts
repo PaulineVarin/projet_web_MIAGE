@@ -15,6 +15,8 @@ import {RouterModule, Routes} from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './_helpers/auth.guards';
+import { DetailsParticipantComponent } from './details-participant/details-participant.component';
+
 
 const appRoutes: Routes = [
   { path: 'listerEvenement', component: ListerEvenementsComponent},
@@ -24,6 +26,7 @@ const appRoutes: Routes = [
   { path: 'detailsEvenement', component: DetailsEvenementComponent, canActivate: [AuthGuard]},
   { path: 'inscriptionPersonne/:acronyme', component: InscriptionPersonneComponent},
   { path: 'listerParticipants', component: ListerParticipantsComponent, canActivate: [AuthGuard]},
+  { path: 'detailsParticipants/:mail', component : DetailsParticipantComponent},
   { path: '', redirectTo: ([AuthGuard] ? 'afficherStatistiques' : 'listerEvenement'), pathMatch: 'full'}
 ]
 
@@ -37,7 +40,8 @@ const appRoutes: Routes = [
     DetailsEvenementComponent,
     ListerParticipantsComponent,
     AjouterEvenementComponent,
-    LoginComponent
+    LoginComponent,
+    DetailsParticipantComponent
   ],
   imports: [
     BrowserModule,

@@ -1,8 +1,9 @@
 h1 {
     width: 100%;
     text-align: center;
-    margin-top: 10%;
     font-size: 250%;
+    margin-bottom: 2%;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 .cadre {
@@ -11,32 +12,54 @@ h1 {
     height: 80%;
     margin-left: 5%;
     padding : 5% 5% 5% 5%;
-    border:1px solid black;
+    border:1px solid #217b8a;
+    box-shadow: 6px 2px 2px 3px #217b8a;
 }
 
-.champs {
-    font-weight: bold;
-    font-size: 150%;
-    padding-left: 5%;
-    width: 50%;
-}
-
-input {
-    border-radius:5px;
-    height: 35px;
-    box-shadow:1px 1px 2px #C0C0C0 inset;
-    width: 50%;
-    padding: 12px 20px;
-    float : right;
-}
 
 .boutonConfirmer {
-    width: 6%;
+    width: 10%;
     height: 40px;
     margin-top: 2%;
     float : right;
     border : none;
-    background-color:#C0C0C0;
+    background-color: #217b8a;
+    border-radius: 10px;
+    border: 2px double #cccccc;
+    color: #eeeeee;
+    text-align: center;
+    font-size: 100%;
+    transition: all 0.5s;
+    cursor: pointer;
+}
+
+.boutonConfirmer span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+
+.boutonConfirmer span:after {
+    content: "\00bb";
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+}
+  
+.boutonConfirmer:hover {
+    background-color: #91cad4;
+}
+
+.boutonConfirmer:hover span {
+    padding-right: 25px;
+ }
+
+.boutonConfirmer:hover span:after {
+    opacity: 1;
+    right: 0;
 }
 
 .boutonAnnuler {
