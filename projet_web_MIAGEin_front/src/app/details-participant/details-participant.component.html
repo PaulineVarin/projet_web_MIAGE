@@ -1,44 +1,46 @@
-<table>
-    <thead>
-        <th colspan="2"><h1>Détails<br/>du participant {{participant.nom}}</h1></th>
-        <tr>
-            <td class="champs">Nom</td>                                             
-            <td class="champs">Prenom</td>                                          
-            <td class="champs">Mail</td>                                            
-            <td class="champs">Nombre d'inscriptions à des évènements</td>  
-        </tr> 
-    </thead>
-    <tbody>   
-         <!-- Données du participant -->  
-         <tr>
-            <td class="donnees">{{participant.nom}}</td>  
-            <td class="donnees">{{participant.prenom}}</td>
-            <td class="donnees">{{participant.mail}}</td>
-            <td class="donnees">{{participant.nbInscriptions}}</td>
-         </tr> 
-    </tbody>
-</table>
+<div class="container">
+    <div class="row justify-content-around custom-line">
+        <div class="col-5 border">
+            <h1>Détails du participant {{participant.nom}}</h1>
+            <b>Nom</b>
+            <p>{{participant.nom}}</p>
+            <b>Prenom</b>
+            <p>{{participant.prenom}}</p>
+            <b>Mail</b>
+            <p>{{participant.mail}}</p>
+            <b>Téléphone</b>
+            <p>{{participant.numeroTelephone}}</p>
+            <b>Nombre d'inscriptions à des évènements</b>
+            <p>{{participant.nbInscriptions}}</p>
+        </div>
+
+        <div class="col-6 border divTableScroll table" style="width : 58%">
+            <h1>Détails des évènements auquels il participe</h1>
+            <table style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th scope="col">Acronyme</th>                                             
+                        <th scope="col">Nom</th>                                          
+                        <th scope="col">Date de l'évènement</th>                                            
+                        <th scope="col">Nombre de participants<th>   
+                        <th scope="col"></th> 
+                    </tr> 
+                </thead>
+                <tbody>   
+                     <!-- Données du participant -->  
+                     <tr *ngFor="let evt of this.listeEvenements; index as i">
+                        <td>{{evt.acronyme}}</td>  
+                        <td>{{evt.nom}}</td>
+                        <td>{{evt.dateEvenement}}</td>
+                        <td>{{evt.nbParticipants}}</td>
+                        <td><button type="button" class="btn btn-outline-secondary" routerLink="/consulterEvenement/{{evt.acronyme}}">Consulter</button></td>
+                     </tr> 
+                </tbody>
+            </table>
+            
 
 
-<table>
-    <thead>
-        <th colspan="2"><h1>Détails<br/>des évènements auquels il participe</h1></th>
-        <tr>
-            <td class="champs">Acronyme</td>                                             
-            <td class="champs">Nom</td>                                          
-            <td class="champs">Date de l'évènement</td>                                            
-            <td class="champs">Nombre de participants<td>   
-            <td class="champs"></td> 
-        </tr> 
-    </thead>
-    <tbody>   
-         <!-- Données du participant -->  
-         <tr *ngFor="let evt of this.listeEvenements; index as i">
-            <td class="donnees">{{evt.acronyme}}</td>  
-            <td class="donnees">{{evt.nom}}</td>
-            <td class="donnees">{{evt.dateEvenement}}</td>
-            <td class="donnees">{{evt.nbParticipants}}</td>
-            <td><button type="button" class="btn btn-outline-secondary" routerLink="/consulterEvenement/{{evt.acronyme}}">Consulter</button></td>
-         </tr> 
-    </tbody>
-</table>
+        </div>
+    </div>
+</div>
+

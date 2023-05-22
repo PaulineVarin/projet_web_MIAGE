@@ -1,29 +1,23 @@
 <div *ngIf="!envoiDemande">
-    <div class="item-composants-consulter-evenement">
-        <table class="tablediv">
-            <tr>
-                <td>
-                    <div class="inner-div inner-div1"><app-details-evenement></app-details-evenement></div>
-                </td>
-                <td>
-                    <div class="inner-div inner-div2"><app-lister-participants></app-lister-participants></div>
-                </td>
-            </tr>
-        </table>
+    <div class="container">
+        <div class="row justify-content-around custom-line">
+            <div class="col-5 border"><app-details-evenement></app-details-evenement></div>
+            <div class="col-6 border divTableScroll" style="width: 58%;"><app-lister-participants></app-lister-participants></div>
+        </div>
     </div>
+</div>
 
-    <div class="boutons">
-        <button routerLink="/afficherStatistiques">Retour</button>
-        <button class="alert" type="submit" (click)="supprimerEvenement()">Supprimer</button>
-    </div>
+<div class="boutons">
+    <button routerLink="/afficherStatistiques">Retour</button>
+    <button class="alert" type="submit" (click)="supprimerEvenement()">Supprimer</button>
 </div>
 
 
 
-<div *ngIf="envoiDemande && !erreurSuppression">
+<div *ngIf="envoiDemande && !erreurSuppression" class="alert alert-primary m-auto" style="width: 30%;">
     <p>Evenement supprimé, merci pour votre action</p>
 </div>
 
-<div *ngIf="erreurSuppression">
+<div *ngIf="erreurSuppression" class="alert alert-warning m-auto" style="width: 30%;">
     <p>Une erreur est survenu, merci de contacter votre administrateur</p>
 </div>

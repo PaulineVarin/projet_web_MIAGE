@@ -5,52 +5,52 @@
             <div class="col-6 mt-3">
                 <div class="input-group row ">
                     <label class="champs" for="acronyme">Acronyme :</label>
-                    <input type="text" id="acronyme" placeholder="Acronyme" [(ngModel)]="evenementModel.acronyme" [ngModelOptions]="{standalone: true}" required maxlength="8" />
+                    <input type="text" id="acronyme" placeholder="AL3C2019" [(ngModel)]="evenementModel.acronyme" [ngModelOptions]="{standalone: true}" required maxlength="8" />
                 </div>
             </div>
             <div class="col-6 mt-3">
                 <div class="input-group row ">
                     <label class="champs" for="nomE">Nom de l'évènement :</label>
-                    <input type="text" id="nomE" placeholder="Nom de l'évènement" [(ngModel)]="evenementModel.nom" [ngModelOptions]="{standalone: true}" required />
+                    <input type="text" id="nomE" placeholder="Forum AL3C 2019" [(ngModel)]="evenementModel.nom" [ngModelOptions]="{standalone: true}" required />
                 </div>
             </div>
             <div class="col-6 mt-3">
                 <div class="input-group row">
                     <label class="champs" for="lieuE">Lieu de l'évènement :</label>
-                    <input type="text" id="lieuE" placeholder="Lieu de l'évènement" [(ngModel)]="evenementModel.adresse" [ngModelOptions]="{standalone: true}" required />
+                    <input type="text" id="lieuE" placeholder="Adresse postale" [(ngModel)]="evenementModel.adresse" [ngModelOptions]="{standalone: true}" required />
                 </div>
             </div>
             <div class="col-6 mt-3">
                 <div class="input-group row">
                     <label class="champs" for="desc">Description : </label>
-                    <input type="textarea" id="desc" placeholder="Description" [(ngModel)]="evenementModel.description" [ngModelOptions]="{standalone: true}" required />
+                    <input type="textarea" id="desc" placeholder="Forum en 2019" [(ngModel)]="evenementModel.description" [ngModelOptions]="{standalone: true}" required />
                 </div>
             </div>
             <div class="col-6 mt-3">
                 <div class="input-group row">
                     <label class="champs" for="dateE">Date de l'évènement :</label>
-                    <input type="date" id="dateE" placeholder="Date de l'évènement"
+                    <input type="date" id="dateE" 
                         [(ngModel)]="evenementModel.dateEvenement" [ngModelOptions]="{standalone: true}" required />
                 </div>
             </div>
             <div class="col-6 mt-3">
                 <div class="input-group row">
                     <label class="champs" for="dateOuvertureI">Date d'ouverture des inscriptions :</label>
-                    <input type="date" id="dateOuvertureI" placeholder="Date d'ouverture des inscriptions"
+                    <input type="date" id="dateOuvertureI" 
                         [(ngModel)]="evenementModel.dateOuverture" [ngModelOptions]="{standalone: true}" required />
                 </div>
             </div>
             <div class="col-6 mt-3">
                 <div class="input-group row">
                     <label class="champs" for="dateClotureI">Date de cloture des inscriptions :</label>
-                    <input type="date" id="dateClotureI" placeholder="Date de cloture des inscriptions"
+                    <input type="date" id="dateClotureI" 
                         [(ngModel)]="evenementModel.dateFermeture" [ngModelOptions]="{standalone: true}" required />
                 </div>
             </div>
             <div class="col-6 mt-3">
                 <div class="input-group row">
                     <label class="champs" for="nbMaxP">Nombre maximal de participants :</label>
-                    <input type="number" id="nbMaxP" placeholder="Nombre maximal de participants"
+                    <input type="number" id="nbMaxP"
                         [(ngModel)]="evenementModel.nbMaxParticipants" [ngModelOptions]="{standalone: true}" required min="0" />
                 </div>
             </div>
@@ -62,11 +62,11 @@
 
 </form>
 
-<div *ngIf="envoiFomulaire && !erreurFormulaire">
-    <p class="bg-info" text-white> {{resPost.evenementExiste == true ? 'Evenement déjà existant, pas de création':"Creation effectué"}}</p>
+<div *ngIf="envoiFomulaire && !erreurFormulaire" class="alert alert-primary m-auto" style="width: 30%;">
+    <p> {{resPost.evenementExiste == true ? 'Evénement déjà existant. La création est impossible !':"Creation effectuée !"}}</p>
 </div>
 
 
-<div *ngIf="envoiFomulaire && erreurFormulaire">
-    <p class="bg-info" text-white>Erreur lors de la prise en compte de la création de l'évènement, merci de contacter votre administrateur</p>
+<div *ngIf="envoiFomulaire && erreurFormulaire" class="alert alert-warning m-auto" style="width: 30%;">
+    <p>Erreur lors de la prise en compte de la création de l'évènement, merci de contacter votre administrateur</p>
 </div>
