@@ -27,7 +27,7 @@ const appRoutes: Routes = [
   { path: 'inscriptionPersonne/:acronyme', component: InscriptionPersonneComponent},
   { path: 'listerParticipants', component: ListerParticipantsComponent, canActivate: [AuthGuard]},
   { path: 'detailsParticipants/:mail', component : DetailsParticipantComponent},
-  { path: '', redirectTo: ([AuthGuard] ? 'afficherStatistiques' : 'listerEvenement'), pathMatch: 'full'}
+  { path: '', redirectTo: 'listerEvenement', pathMatch: 'full'}
 ]
 
 @NgModule({
