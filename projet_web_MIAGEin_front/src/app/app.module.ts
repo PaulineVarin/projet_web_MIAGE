@@ -14,15 +14,16 @@ import { HttpClientModule } from '@angular/common/http';
 import {RouterModule, Routes} from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
+import { AuthGuard } from './_helpers/auth.guards';
 
 const appRoutes: Routes = [
   { path: 'listerEvenement', component: ListerEvenementsComponent},
-  { path: 'afficherStatistiques', component: AfficherStatistiquesComponent},
-  { path: 'ajouterEvenement', component: AjouterEvenementComponent},
-  { path: 'consulterEvenement/:acronyme', component: ConsulterEvenementComponent},
-  { path: 'detailsEvenement', component: DetailsEvenementComponent},
-  { path: 'inscriptionPersonne/:acronyme', component: InscriptionPersonneComponent},
-  { path: 'listerParticipants', component: ListerParticipantsComponent},
+  { path: 'afficherStatistiques', component: AfficherStatistiquesComponent, canActivate: [AuthGuard]},
+  { path: 'ajouterEvenement', component: AjouterEvenementComponent, canActivate: [AuthGuard]},
+  { path: 'consulterEvenement/:acronyme', component: ConsulterEvenementComponent, canActivate: [AuthGuard]},
+  { path: 'detailsEvenement', component: DetailsEvenementComponent, canActivate: [AuthGuard]},
+  { path: 'inscriptionPersonne/:acronyme', component: InscriptionPersonneComponent, canActivate: [!AuthGuard]},
+  { path: 'listerParticipants', component: ListerParticipantsComponent, canActivate: [AuthGuard]},
   { path: '', redirectTo: 'listerEvenement', pathMatch: 'full'}
 ]
 

@@ -1,8 +1,8 @@
-import { JsonPipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { Administrateur } from './_model/Administrateur';
 
 @Injectable({
   providedIn: 'root'
@@ -10,25 +10,32 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export class AuthenticationUserService {
 
   private _loginUrl = "http://localhost:3000/login";
-  private userSubject: BehaviorSubject<any|null>;
-  public user: Observable<any|null>;
+  private userSubject: BehaviorSubject<Administrateur|null>;
+  public userValue: Observable<Administrateur|null>;
 
 
     constructor(private http: HttpClient, private router: Router) {
 
       this.userSubject = new BehaviorSubject(JSON.parse(localStorage.getItem('user')!));
-      this.user = this.userSubject.asObservable();
+      this.userValue = this.userSubject.asObservable();
      }
 
     login(username: string, password: string) {
         let res = this.http.post<any>(this._loginUrl, { username, password });
         
         //attention si plusieurs resultats (user) seul le dernier sera connecté (NB: un seul résultat attendu)
+
+        let i = 1;
         res.forEach(
           user => {
             //store user details in local storage to keep user logged in between page refreshes
-            localStorage.setItem('user', JSON.stringify(user));
-            this.userSubject.next(user);
+            if(i==1) {
+              localStorage.setItem('user', JSON.stringify(user));
+              this.userSubject.next(user);
+            } else {
+              localStorage.clear();
+            }
+            i++;
           }
         );
         return res;

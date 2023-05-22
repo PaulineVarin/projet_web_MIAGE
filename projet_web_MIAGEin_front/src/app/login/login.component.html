@@ -1,4 +1,4 @@
-<div class="col-md-6 col-md-offset-3">
+<div *ngIf="!isLogin" class="col-md-6 col-md-offset-3">
     <h2>Login</h2>
     <form name="form">
         <div class="form-group">
@@ -11,4 +11,8 @@
         </div>
         <button (click)="loginUser()" type="button" class="btn btn-success float-right">Se connecter</button>
     </form>
+</div>
+
+<div *ngIf="isLogin">
+    <button (click)="logoutUser()" type="button" class="btn btn-success float-right">Se déconnecter</button>
 </div>

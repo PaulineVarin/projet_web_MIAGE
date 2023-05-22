@@ -10,6 +10,7 @@ import { AuthenticationUserService } from '../authentication-user.service';
 export class LoginComponent {
 
   model: any = {};
+  isLogin: boolean = (localStorage.getItem('user') != null);
 
   constructor(
     private  AuthenticationUserService: AuthenticationUserService
@@ -21,7 +22,14 @@ export class LoginComponent {
   loginUser() {
     this.AuthenticationUserService.login(this.model.username, this.model.password)
     .forEach(
-      data => console.log(data)
+      data => {console.log(data); this.isLogin = true;}
     );
+    console.log(localStorage.getItem('user'));
+  }
+
+  logoutUser() {
+    this.AuthenticationUserService.logout();
+    this.isLogin = false;
+    console.log(localStorage.getItem('user'));
   }
 }
