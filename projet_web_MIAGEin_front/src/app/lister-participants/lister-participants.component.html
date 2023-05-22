@@ -1,22 +1,24 @@
-<h1>Liste<br />Participants</h1>
-<div class="divTableScroll">
+<h1>Liste des participants</h1>
+<div class="table" >
     <table>
         <thead>
-            <tr class="champs">
-                <td class="nom">Nom</td>
-                <td class="prenom">Prenom</td>
-                <td class="mail">Mail</td>
-                <td class="tel">Téléphone</td>
-                <td class="tel"></td>
+            <tr>
+                <th></th>
+                <th scope="col">Nom</th>
+                <th scope="col">Prenom</th>
+                <th scope="col">Mail</th>
+                <th scope="col">Téléphone</th>
+                <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
             <!-- liste des participants -->
-            <tr class="participant" *ngFor="let p of this.listParticipants; index as i">
-                <td class="nom">{{p.nom}}</td>
-                <td class="prenom">{{p.prenom}}</td>
-                <td class="mail">{{p.mail}}</td>
-                <td class="tel">{{p.numeroTelephone}}</td>
+            <tr  *ngFor="let p of this.listParticipants; index as i">
+                <th scope="row">{{i+1}}</th>
+                <td>{{p.nom}}</td>
+                <td>{{p.prenom}}</td>
+                <td>{{p.mail}}</td>
+                <td >{{p.numeroTelephone}}</td>
                 <td><button type="button" class="btn btn-outline-secondary" routerLink="/detailsParticipants/{{p.mail}}">Consulter</button></td>
             </tr>
         </tbody>

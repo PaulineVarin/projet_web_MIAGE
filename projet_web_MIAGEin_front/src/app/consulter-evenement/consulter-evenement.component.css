@@ -1,37 +1,15 @@
-.item-composants-consulter-evenement {
-    width: 100%;
-    align-content:baseline;
+.divTableScroll {
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    display: inline-block;
 }
 
-.tablediv {
-    text-align: end;
-}
 
-td{vertical-align: top;}
-
-.inner-div {
-    display:inline-block;
-    border: solid;
-    border-color: black;
-    height: 490px;
-    background-color: white;
-}
-
-.inner-div1 {
-    margin-left: 5%;
-    margin-right: 4%;
-    width: fit-content;
-}
-
-.inner-div2 {
-    margin-left: 4%;
-    margin-right: 5%;
-    width: 110%;
-}
 
 .boutons {
     width: 100%;
     text-align: right;
+    margin-top: 2%;
 }
 
 button {

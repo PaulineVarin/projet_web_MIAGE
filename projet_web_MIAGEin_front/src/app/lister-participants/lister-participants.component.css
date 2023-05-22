@@ -1,54 +1,9 @@
-.divTableScroll {
-    overflow-y: scroll;
-    scrollbar-width: thin;
-    display: inline-block;
-    height: 350px;
+h1 {
+    text-align: center;
+    margin-bottom:5%;
+    margin-top: 5%;
 }
 
 table {
-    background-color: white;
-    width: 100%;
-    text-align: left;
-    padding-bottom: 2%;
-    
-}
-
-h1 {
-    text-align: center;
-}
-
-div {
     width: 100%;
 }
-
-thead {
-    width: 100%;
-    text-align: center;
-    position: sticky;
-    top: 0;
-    background-color: white;
-}
-
-
-tbody {
-    width: 100%;
-}
-
-tr {
-    width: 100%;
-}
-
-.champs {
-    font-weight: bold;
-}
-
-.nom {
-    width: 50%;
-} 
-
-.prenom {
-    width: 50%;
-}
-
-
-

@@ -1,0 +1,11 @@
+h1 {
+    margin-bottom:5%;
+    margin-top: 5%;
+    text-align: center;
+}
+
+.divTableScroll {
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    display: inline-block;
+}
