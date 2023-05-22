@@ -13,7 +13,7 @@ export class LoginComponent {
   isLogin: boolean = (localStorage.getItem('user') != null);
 
   constructor(
-    private  AuthenticationUserService: AuthenticationUserService
+    private AuthenticationUserService: AuthenticationUserService
     ) {  }
 
   ngOnInit() {
@@ -22,9 +22,10 @@ export class LoginComponent {
   loginUser() {
     this.AuthenticationUserService.login(this.model.username, this.model.password)
     .forEach(
-      data => {console.log(data); this.isLogin = true;}
+      data => console.log(data)
     );
     console.log(localStorage.getItem('user'));
+    this.isLogin = (localStorage.getItem('user') != null);
   }
 
   logoutUser() {

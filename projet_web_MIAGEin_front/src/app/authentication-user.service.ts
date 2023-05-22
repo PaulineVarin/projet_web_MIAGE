@@ -38,6 +38,12 @@ export class AuthenticationUserService {
             i++;
           }
         );
+
+        // supression du cas vide
+        if(localStorage.getItem('user') == '[]'){
+          localStorage.clear();
+        }
+
         return res;
     }
 
