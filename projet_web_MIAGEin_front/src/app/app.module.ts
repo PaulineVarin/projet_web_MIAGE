@@ -13,18 +13,21 @@ import { ApiProjetWebService } from './api-projet-web.service';
 import { HttpClientModule } from '@angular/common/http';
 import {RouterModule, Routes} from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { LoginComponent } from './login/login.component';
+import { AuthGuard } from './_helpers/auth.guards';
 import { DetailsParticipantComponent } from './details-participant/details-participant.component';
+
 
 const appRoutes: Routes = [
   { path: 'listerEvenement', component: ListerEvenementsComponent},
-  { path: 'afficherStatistiques', component: AfficherStatistiquesComponent},
-  { path: 'ajouterEvenement', component: AjouterEvenementComponent},
-  { path: 'consulterEvenement/:acronyme', component: ConsulterEvenementComponent},
-  { path: 'detailsEvenement', component: DetailsEvenementComponent},
+  { path: 'afficherStatistiques', component: AfficherStatistiquesComponent, canActivate: [AuthGuard]},
+  { path: 'ajouterEvenement', component: AjouterEvenementComponent, canActivate: [AuthGuard]},
+  { path: 'consulterEvenement/:acronyme', component: ConsulterEvenementComponent, canActivate: [AuthGuard]},
+  { path: 'detailsEvenement', component: DetailsEvenementComponent, canActivate: [AuthGuard]},
   { path: 'inscriptionPersonne/:acronyme', component: InscriptionPersonneComponent},
-  { path: 'listerParticipants', component: ListerParticipantsComponent},
+  { path: 'listerParticipants', component: ListerParticipantsComponent, canActivate: [AuthGuard]},
   { path: 'detailsParticipants/:mail', component : DetailsParticipantComponent},
-  { path: '', redirectTo: 'listerEvenement', pathMatch: 'full'}
+  { path: '', redirectTo: ([AuthGuard] ? 'afficherStatistiques' : 'listerEvenement'), pathMatch: 'full'}
 ]
 
 @NgModule({
@@ -37,6 +40,7 @@ const appRoutes: Routes = [
     DetailsEvenementComponent,
     ListerParticipantsComponent,
     AjouterEvenementComponent,
+    LoginComponent,
     DetailsParticipantComponent
   ],
   imports: [

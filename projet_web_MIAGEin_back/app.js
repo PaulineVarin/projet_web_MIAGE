@@ -2,6 +2,7 @@ var express = require('express');
 var bodyparser = require('body-parser');
 var metierEvenement = require('./metierEvenement');
 var metierParticipant = require('./metierParticipants');
+var metierAuthenticate = require('./metierAuthentification');
 
 var app = express();
 app.use(bodyparser.json());
@@ -120,6 +121,28 @@ app.get('/participants/moyenne', async function (req, res) {
   res.status(200).json(await metierParticipant.moyenneParticipants());
 });
 
+
+
+// PARTIE AUTHENTIFICATION
+
+//Valider l'authentification (POST)
+app.post('/login', async function(req, res) {
+  
+  //Récuperer les paramètres
+  var login = req.body.username;
+  var mdp = req.body.password;
+
+  //Metier
+  console.log("Metier");
+  try {
+    var objRes = await metierAuthenticate.authenticateAdmin(login, mdp);
+    //Forger le résultat
+    res.status(200).json(objRes) ;
+  }
+  catch (error) {
+    res.status(404).json("ERR") ;
+  }
+});
 
 
 //Demarrage du serveur sur le port 3000
