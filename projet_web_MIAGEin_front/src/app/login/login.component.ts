@@ -46,6 +46,7 @@ export class LoginComponent {
   logoutUser() {
     this.AuthenticationUserService.logout();
     this.isLogin = false;
+    this.route.navigateByUrl('/listerEvenement');
     console.log(localStorage.getItem('user'));
   }
 }

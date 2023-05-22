@@ -22,9 +22,9 @@ const appRoutes: Routes = [
   { path: 'ajouterEvenement', component: AjouterEvenementComponent, canActivate: [AuthGuard]},
   { path: 'consulterEvenement/:acronyme', component: ConsulterEvenementComponent, canActivate: [AuthGuard]},
   { path: 'detailsEvenement', component: DetailsEvenementComponent, canActivate: [AuthGuard]},
-  { path: 'inscriptionPersonne/:acronyme', component: InscriptionPersonneComponent, canActivate: [!AuthGuard]},
+  { path: 'inscriptionPersonne/:acronyme', component: InscriptionPersonneComponent},
   { path: 'listerParticipants', component: ListerParticipantsComponent, canActivate: [AuthGuard]},
-  { path: '', redirectTo: 'listerEvenement', pathMatch: 'full'}
+  { path: '', redirectTo: ([AuthGuard] ? 'afficherStatistiques' : 'listerEvenement'), pathMatch: 'full'}
 ]
 
 @NgModule({
