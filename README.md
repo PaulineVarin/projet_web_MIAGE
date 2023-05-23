@@ -10,3 +10,9 @@ Pour pouvoir lancer le projet merci de passer la commande **npm install** dans l
 - projet_web_MIAGEin_back
 - projet_web_MIAGEin_front
 
+
+## Connexion admin
+Pour se connecter en administrateur ci-dessous les identifiants:
+Identifiant : admin
+Mot de passe : root
+
