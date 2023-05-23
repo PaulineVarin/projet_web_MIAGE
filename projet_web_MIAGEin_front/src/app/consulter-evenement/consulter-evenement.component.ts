@@ -20,7 +20,6 @@ export class ConsulterEvenementComponent implements OnInit {
   }
 
   supprimerEvenement() {
-    console.log("Hello sup");
     this.apiProjetWeb.supprimerEvenement(this.acronymeEvent).subscribe(
       (data) => {
         this.envoiDemande = true;

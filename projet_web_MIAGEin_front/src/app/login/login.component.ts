@@ -28,7 +28,6 @@ export class LoginComponent {
     this.AuthenticationUserService.login(this.model.username, this.model.password)
     .subscribe(
       user =>{
-        console.log(user);
         //store user details in local storage to keep user logged in between page refreshes
         if(i==1 && JSON.stringify(user) != '[]') {
           localStorage.setItem('user', JSON.stringify(user));
@@ -47,6 +46,5 @@ export class LoginComponent {
     this.AuthenticationUserService.logout();
     this.isLogin = false;
     this.route.navigateByUrl('/listerEvenement');
-    console.log(localStorage.getItem('user'));
   }
 }

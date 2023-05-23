@@ -39,7 +39,6 @@ function getEvenement(pacronyme) {
             if (err) {
                 reject(err);
             }
-            console.log('ouverture BDD');
         });
 
         db.get(sql, [pacronyme], async (err, row) =>{
@@ -71,7 +70,6 @@ function getEvenements() {
             if (err) {
                 reject(err);
             }
-            console.log('ouverture BDD');
         });
 
         //traitement de toutes les lignes evenements
@@ -119,7 +117,6 @@ function getEvenementsCourants() {
             if (err) {
                 reject(err);
             }
-            console.log('ouverture BDD');
         });
 
         //traitement de toutes les lignes evenements
@@ -167,7 +164,6 @@ function getInformationsEvenement(acronymeEvenement) {
             if (err) {
                 reject(err);
             }
-            console.log('ouverture BDD');
         });
 
         //traitement de la ligne
@@ -202,12 +198,10 @@ async function ajouterEvenement(evenement) {
 
     const custProm = new Promise((resolve, reject) => {
         if (resExisteE) {
-            console.log("Evenement existe");
             resOperation.evenementExiste = true;
             resolve(resOperation);
 
         } else {
-            console.log("Evenement existe pas");
             resOperation.evenementExiste = false;
             //Insertion de l'evenement
             let sql = 'INSERT INTO Evenement VALUES(?, ?, ?, ? , ?, ?, ?, ?)';
@@ -218,11 +212,9 @@ async function ajouterEvenement(evenement) {
                     reject(err);
                     db.close();
                 }
-                console.log('ouverture BDD ajouterEvenement');
             });
 
             db.run(sql, [evenement.acronyme, evenement.nom, evenement.adresse, evenement.description, evenement.dateOuverture, evenement.dateFermeture, evenement.dateEvenement, evenement.nbMaxParticipants], function (err) {
-                console.log("Run");
                 if (err) {
                     reject(err);
                 }
@@ -252,18 +244,15 @@ async function supprimerEvenement(acronymeEvenement) {
                 reject(err);
                 db.close();
             }
-            console.log('ouverture BDD suppression E');
         });
 
         db.run(sql, [acronymeEvenement], async (err) => {
             if (err) {
                 reject(err);
-                console.log(error)
                 db.close();
             }
 
             else {
-                console.log("2eme requete ok");
                 db.close();
                 resolve();
             }
@@ -288,7 +277,6 @@ function getEvenementsParticipant(pmail) {
                 reject(err);
                 db.close();
             }
-            console.log('ouverture BDD get Evenements Participants');
         });
 
 
@@ -343,7 +331,6 @@ function getNbEvenementsParticipant(pmail) {
                 reject(err);
                 db.close();
             }
-            console.log('ouverture BDD getNbEvenementsParticipant');
         });
 
         db.get(sql, [pmail], (err, row) => {
@@ -374,7 +361,6 @@ function getNbParticipants(acronymeEvent) {
                 reject(err);
                 db.close();
             }
-            console.log('ouverture BDD nb participants');
         });
 
         db.get(sql, [acronymeEvent], (err, row) => {
@@ -403,7 +389,6 @@ function getNbEvenements() {
                 reject(err);
                 db.close();
             }
-            console.log('ouverture BDD nb evenements');
         });
 
         db.get(sql, (err, row) => {
@@ -420,7 +405,6 @@ function getNbEvenements() {
             if (err) {
                 return err;
             }
-            console.log('Close the database connection.');
         });
 
     });
@@ -439,7 +423,6 @@ function evenementExiste(pacronyme) {
                 reject(err);
                 db.close();
             }
-            console.log('ouverture BDD evenementExiste');
         });
 
         db.get(sql, [pacronyme], (err, row) => {
