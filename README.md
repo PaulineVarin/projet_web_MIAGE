@@ -1,6 +1,6 @@
 # projet_web_MIAGE
 
-## Colaborators
+## Collaborateurs
   - Carolane PULVAL-DADY
   - Morgan NAYET
   - Pauline Varin
