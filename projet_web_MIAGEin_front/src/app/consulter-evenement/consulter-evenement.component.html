@@ -10,10 +10,8 @@
         <button class="alert" type="submit" (click)="supprimerEvenement()">Supprimer</button>
     </div>
 </div>
+<button class="boutonsRetour" routerLink="/afficherStatistiques">Retour</button>
 
-<div class="boutons">
-    <button routerLink="/afficherStatistiques">Retour</button>
-</div>
 
 
 <div *ngIf="envoiDemande && !erreurSuppression" class="alert alert-primary m-auto" style="width: 30%;">
