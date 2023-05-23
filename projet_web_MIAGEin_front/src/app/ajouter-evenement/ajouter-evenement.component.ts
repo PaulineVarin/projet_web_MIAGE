@@ -30,22 +30,17 @@ export class AjouterEvenementComponent implements OnInit {
   }
 
   rajoutEvenement() {
-
-    console.log("Debut rajoutEvenement");
     this.envoiFomulaire = true;
     this.erreurFormulaire = false;
     //Récupération d'un Observable auquel on se souscrit, on récupère le JSON si valide, sinon on gère l'erreur
     this.apiProjetWeb.ajouterEvenement(this.evenementModel).subscribe(
       (data) => {
-        console.log(data)
         let listValues = Object.values(data);
         this.resPost.evenementExiste = listValues[0];
         this.resPost.insertionE = listValues[1];
       },
       (err) => this.handleError()
     );
-
-    console.log("Fin rajoutEvenement");
   }
 
   handleError() {

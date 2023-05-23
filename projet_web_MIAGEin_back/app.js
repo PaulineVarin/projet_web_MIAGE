@@ -25,7 +25,6 @@ app.post('/evenement/ajouter', async function (req, res) {
   var evenement = req.body;
 
   //Metier
-  console.log("Metier");
   try {
     var objRes = await metierEvenement.ajouterEvenement(evenement);
     //Forger le résultat
@@ -43,7 +42,6 @@ app.delete('/evenement/supprimer/:acronymeEvent', async function (req, res) {
   var acronymeEvenement = req.params.acronymeEvent;
 
   //Effectuer le metier
-  console.log("Metier");
   try {
     var objRes = await metierEvenement.supprimerEvenement(acronymeEvenement);
     //Forger le résultat
@@ -105,7 +103,6 @@ app.post('/personne/ajouter', async function (req, res) {
   var participant = req.body[1];
   var acronymeE = req.body[0];
   //Metier
-  console.log("Metier");
   try {
     var objRes = await metierParticipant.ajouterParticipant(acronymeE, participant);
     //Forger le résultat
@@ -133,7 +130,6 @@ app.post('/login', async function(req, res) {
   var mdp = req.body.password;
 
   //Metier
-  console.log("Metier");
   try {
     var objRes = await metierAuthenticate.authenticateAdmin(login, mdp);
     //Forger le résultat

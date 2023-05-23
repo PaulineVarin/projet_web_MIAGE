@@ -26,7 +26,6 @@ function getParticipants(acronymeEvent) {
             if (err) {
                 reject(err);
             }
-            console.log('ouverture BDD');
         });
 
         //traitement de toutes les lignes evenements
@@ -77,7 +76,6 @@ async function ajouterParticipant(pacronyme, pparticipant) {
                 reject(err);
                 db.close();
             }
-            console.log('ouverture BDD ajouterParticipant');
         });
 
         if (resExisteP) {
@@ -91,7 +89,6 @@ async function ajouterParticipant(pacronyme, pparticipant) {
             else {
                 //Verification qu'il reste de la place dans l'evenement
                 let evt = await metierEvenement.getEvenement(pacronyme) ; 
-                console.log(evt) ;
                 if(evt.nbParticipants == evt.nbMaxParticipants) {
                     resOperation.placesRestantes = false ; 
                     resolve(resOperation);
@@ -112,14 +109,12 @@ async function ajouterParticipant(pacronyme, pparticipant) {
             let sql = 'INSERT INTO Participant VALUES(?, ? , ? , ?)';
 
             db.run(sql, [pparticipant.mail, pparticipant.nom, pparticipant.prenom, pparticipant.numeroTelephone], async (err) => {
-                console.log('Run');
                 if (err) {
                     reject(err);
                 }
                 else {
                     //Verification qu'il reste de la place dans l'evenement
                     let evt = await metierEvenement.getEvenement(pacronyme) ; 
-                    console.log(evt) ;
                     
                     if(evt.nbParticipants == evt.nbMaxParticipants) {
                         resOperation.placesRestantes = false ; 
@@ -150,7 +145,6 @@ function participantExiste(pmail) {
                 reject(err);
                 db.close();
             }
-            console.log('ouverture BDD participantExiste');
         });
 
         db.get(sql, [pmail], (err, row) => {
@@ -186,7 +180,6 @@ function liaisonParticipantEvenementExiste(pacronyme, pmail) {
                 reject(err);
                 db.close();
             }
-            console.log('ouverture BDD liaisonParticipantEvenementExiste');
         });
 
         db.get(sql, [pmail, pacronyme], (err, row) => {
@@ -222,7 +215,6 @@ function lierParticipant(pacronyme, pmail) {
                 reject(err);
                 db.close();
             }
-            console.log('ouverture BDD liaisonPE');
         });
 
         db.run(sql, [pmail, pacronyme], async (err) => {
@@ -231,7 +223,6 @@ function lierParticipant(pacronyme, pmail) {
                 db.close();
             }
             else {
-                console.log('liaison ok');
                 let res = true;
                 db.close();
                 resolve(res);
@@ -253,18 +244,15 @@ function supprimerParticipants(acronymeEvenement) {
                 reject(err);
                 db.close();
             }
-            console.log('ouverture BDD suppression P');
         });
 
         db.run(sql, [acronymeEvenement], (err) => {
             if (err) {
                 reject(err);
-                console.log(error)
                 db.close();
             }
 
             else {
-                console.log('1ere requete ok');
                 db.close();
                 resolve();
             }
@@ -285,7 +273,6 @@ function getParticipant(pmail) {
                 reject(err);
                 db.close();
             }
-            console.log('ouverture BDD get Participant');
         });
 
         db.get(sql, [pmail], async (err, row) => {
@@ -319,7 +306,6 @@ function moyenneParticipants() {
                 reject(err);
                 db.close();
             }
-            console.log('ouverture BDD suppression P');
         });
 
         db.all(sql, (err, rows) => {
