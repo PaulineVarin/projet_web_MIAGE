@@ -1,0 +1,59 @@
+.menu{
+    width: 200%;
+    height: 80px;
+    background-color: #217b8a;
+    display: block;
+    margin-bottom: 1%;
+}
+.mainmenubtn {
+    background-color: #217b8a;
+    color: white;
+    border: none;
+    padding:20px;
+    margin-top: 3%;
+}
+.mainmenubtn:hover {
+    background-color: #91cad4;
+    display: block;
+}
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+.dropdown-child {
+    display: none;
+    background-color: white;
+    min-width: 300px;
+    position: relative;
+    border: solid 1px black;
+    border-radius: 2%;
+}
+.dropdown-child div {
+    color: #217b8a;
+    padding: 5%;
+    text-decoration: none;
+    display: block;
+}
+.dropdown:hover .dropdown-child {
+    display: block;
+}
+
+.bouton {
+    background-color: #91cad4;
+    margin-left: 5%;
+    margin-bottom: 2%;
+}
+
+.boutonDeco {
+    background-color: #91cad4;
+    margin-top: 1%;
+    margin-left: 1%;
+}
+
+.menuDeco{
+    width: 100%;
+    height: 80px;
+    background-color: #217b8a;
+    display: block;
+    margin-bottom: 1%;
+}
